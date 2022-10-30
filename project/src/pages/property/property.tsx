@@ -1,6 +1,10 @@
-function Property(): JSX.Element {
+import { Helmet } from 'react-helmet-async';
+function Property (): JSX.Element {
   return (
     <main className="page__main page__main--property">
+      <Helmet>
+        <title>Объявления</title>
+      </Helmet>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
@@ -275,4 +279,4 @@ function Property(): JSX.Element {
   );
 }
 
-export {Property};
+export default Property;
