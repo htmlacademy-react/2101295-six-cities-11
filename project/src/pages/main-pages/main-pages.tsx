@@ -1,9 +1,13 @@
-import OfferCard from '../../components/one-card/one-card';
+//import OfferCard from '../../components/one-card/one-card';
+import OffersList from '../../components/offer-list/offer-list';
+import { Offer } from '../../types/offers/offers';
+
 type MainPagesProps = {
  cardsCount: number;
+ offers: Offer[];
 }
 
-function MainPages({cardsCount}: MainPagesProps
+function MainPages({cardsCount, offers}: MainPagesProps
 ): JSX.Element {
   return (
     <div className="page page--gray page--main">
@@ -52,7 +56,7 @@ function MainPages({cardsCount}: MainPagesProps
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <a className="locations__item-link tabs__item" href="#">
                   <span>Brussels</span>
                 </a>
               </li>
@@ -62,12 +66,12 @@ function MainPages({cardsCount}: MainPagesProps
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <a className="locations__item-link tabs__item" href="#">
                   <span>Hamburg</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
+                <a className="locations__item-link tabs__item" href="#">
                   <span>Dusseldorf</span>
                 </a>
               </li>
@@ -95,11 +99,7 @@ function MainPages({cardsCount}: MainPagesProps
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferCard/>
-                <OfferCard/>
-                <OfferCard/>
-                <OfferCard/>
-                <OfferCard/>
+                <OffersList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
