@@ -9,3 +9,12 @@ export type Offer = {
   title: string;
   type: string;
   };
+
+export type DateForCards = {
+  forArticle: string;
+  forInfo: string;
+  forWrap: string;
+  width: string;
+  hight: string;
+}
+
