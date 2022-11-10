@@ -1,3 +1,5 @@
+import {Differences} from '../types/offers/offers';
+
 export enum AppRoute {
 Main = '/',
 Login = '/login',
@@ -12,18 +14,26 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum OfferOnFavorites {
-  forArticle = 'favorites__card',
-  forInfo = 'favorites__card-info',
-  forWrap = 'favorites__image-wrapper',
-  width = '150',
-  hight = '110',
-}
+export const OfferOnFavorites: Differences = {
+  class: {
+    forArticle: 'favorites__card',
+    forInfo: 'favorites__card-info',
+    forWrap: 'favorites__image-wrapper',
+  },
+  size: {
+    width: '150',
+    hight: '110',
+  },
+};
 
-export enum OfferOnMain {
-  forArticle = 'cities__card',
-  forInfo = '',
-  forWrap = 'cities__image-wrapper',
-  width = '260',
-  hight = '200',
-}
+export const OfferOnMain: Differences = {
+  class: {
+    forArticle: 'cities__card',
+    forInfo: '',
+    forWrap: 'cities__image-wrapper',
+  },
+  size: {
+    width: '260',
+    hight: '200',
+  },
+};

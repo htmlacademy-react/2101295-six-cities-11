@@ -10,11 +10,15 @@ export type Offer = {
   type: string;
   };
 
-export type DateForCards = {
-  forArticle: string;
-  forInfo: string;
-  forWrap: string;
-  width: string;
-  hight: string;
+export type Differences = {
+  class: {
+    forArticle: string;
+    forInfo: string;
+    forWrap: string;
+  };
+  size: {
+    width: string;
+    hight: string;
+  };
 }
 
