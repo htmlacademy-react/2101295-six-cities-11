@@ -12,9 +12,10 @@ import {Offer} from '../../types/offers/offers';
 type AppScreenProps = {
   cardsCount: number;
   offers: Offer[];
+  offer: Offer;
 }
 
-function App({cardsCount, offers}: AppScreenProps
+function App({cardsCount, offers, offer}: AppScreenProps
 ): JSX.Element {
   return (
     <HelmetProvider>

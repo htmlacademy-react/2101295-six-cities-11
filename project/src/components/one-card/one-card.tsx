@@ -1,16 +1,17 @@
 import {Offer, Differences} from '../../types/offers/offers';
 import {Link} from 'react-router-dom';
-import { HTMLAttributes } from 'react';
+//import { HTMLAttributes } from 'react';
 
 type FavoritesCardProps = {
   offer: Offer;
   differences: Differences;
-} & HTMLAttributes<HTMLTitleElement>
+  onOfferMouseEnter?: (offerId: number | null) => void;
+}
 
 
-export default function OneCard({ offer, differences, onMouseEnter, onMouseLeave }: FavoritesCardProps): JSX.Element {
+export default function OneCard({ offer, differences, onOfferMouseEnter }: FavoritesCardProps): JSX.Element {
   return (
-    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => onOfferMouseEnter?.(offer.id)} onMouseLeave={() => onOfferMouseEnter?.(null)}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
       <div className={`place-card__image-wrapper ${differences.class.forWrap}`}>
         <Link to={`/offer/${offer.id}`}>

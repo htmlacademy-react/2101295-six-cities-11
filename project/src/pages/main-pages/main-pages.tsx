@@ -1,4 +1,6 @@
 //import OfferCard from '../../components/one-card/one-card';
+import { useState } from 'react';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import { Offer } from '../../types/offers/offers';
 
@@ -9,6 +11,12 @@ type MainPagesProps = {
 
 function MainPages({cardsCount, offers}: MainPagesProps
 ): JSX.Element {
+
+  const [currentOffer, setActiveOffer] = useState<number | null>(null);
+  const handleOfferMouseEnter = (offerId: number | null) => {
+    setActiveOffer(offerId);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -99,11 +107,11 @@ function MainPages({cardsCount, offers}: MainPagesProps
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers}/>
+                <OffersList offers={offers} onOfferMouseEnter={handleOfferMouseEnter}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map className={'cities__map'} offers={offers} city={offers[0].city} selectedPoint={currentOffer} />
             </div>
           </div>
         </div>
