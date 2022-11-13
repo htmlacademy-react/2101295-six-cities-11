@@ -23,7 +23,7 @@ export type Offer = {
     };
   };
 
-export type Differences = {
+export type offerCardConfig = {
   class: {
     forArticle: string;
     forInfo: string;

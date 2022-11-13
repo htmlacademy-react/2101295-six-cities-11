@@ -1,4 +1,4 @@
-import {Differences} from '../types/offers/offers';
+import {offerCardConfig} from '../types/offers/offers';
 
 export enum AppRoute {
 Main = '/',
@@ -14,7 +14,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const OfferOnFavorites: Differences = {
+export const OfferOnFavorites: offerCardConfig = {
   class: {
     forArticle: 'favorites__card',
     forInfo: 'favorites__card-info',
@@ -26,7 +26,7 @@ export const OfferOnFavorites: Differences = {
   },
 };
 
-export const OfferOnMain: Differences = {
+export const OfferOnMain: offerCardConfig = {
   class: {
     forArticle: 'cities__card',
     forInfo: '',

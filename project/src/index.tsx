@@ -16,7 +16,6 @@ root.render(
     <App
       cardsCount = {Setting.CardsCount}
       offers = {offers}
-      offer = {offers[2]}
     />
   </React.StrictMode>,
 );

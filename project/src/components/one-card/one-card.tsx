@@ -1,10 +1,10 @@
-import {Offer, Differences} from '../../types/offers/offers';
+import {Offer, offerCardConfig} from '../../types/offers/offers';
 import {Link} from 'react-router-dom';
 //import { HTMLAttributes } from 'react';
 
 type FavoritesCardProps = {
   offer: Offer;
-  differences: Differences;
+  differences: offerCardConfig;
   onOfferMouseEnter?: (offerId: number | null) => void;
 }
 
