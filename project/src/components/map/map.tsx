@@ -52,7 +52,6 @@ function Map(props: MapProps): JSX.Element {
   return (
     <section
       className={`${className} map`}
-      style={{height: '500px'}}
       ref={mapRef}
     />
   );
