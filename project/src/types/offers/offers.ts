@@ -1,4 +1,12 @@
+export type City = {
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
 export type Offer = {
+  city: City;
   id: number;
   images: string[];
   isFavorite: boolean;
@@ -8,13 +16,22 @@ export type Offer = {
   rating: number;
   title: string;
   type: string;
+  location: {
+    lat: number;
+    lng: number;
+    zoom: number;
+    };
   };
 
-export type DateForCards = {
-  forArticle: string;
-  forInfo: string;
-  forWrap: string;
-  width: string;
-  hight: string;
+export type offerCardConfig = {
+  class: {
+    forArticle: string;
+    forInfo: string;
+    forWrap: string;
+  };
+  size: {
+    width: string;
+    hight: string;
+  };
 }
 
