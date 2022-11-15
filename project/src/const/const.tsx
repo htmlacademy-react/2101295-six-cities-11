@@ -38,6 +38,20 @@ export const OfferOnMain: offerCardConfig = {
   },
 };
 
+
+export const OfferOnNearby: offerCardConfig = {
+  class: {
+    forArticle: 'favorites__card',
+    forInfo: 'favorites__card-info',
+    forWrap: 'favorites__image-wrapper',
+  },
+  size: {
+    width: '150',
+    hight: '110',
+  },
+};
+
+
 export const URL_MARKER_DEFAULT =
   '../../../img/pin.svg';
 
