@@ -108,7 +108,7 @@ function MainPages({cardsCount, offers}: MainPagesProps
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} forOut={'cities__places-list places__list tabs__content'} differences={OfferOnMain} onOfferMouseEnter={handleOfferMouseEnter}/>
+                <OffersList offers={offers} wrapperClassName={'cities__places-list places__list tabs__content'} classList={OfferOnMain} onOfferMouseEnter={handleOfferMouseEnter}/>
               </div>
             </section>
             <div className="cities__right-section">

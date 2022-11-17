@@ -38,7 +38,7 @@ function App({cardsCount} : AppScreenProps
             }
           />
           <Route
-            path={`${AppRoute.Room}/:id`}
+            path={AppRoute.Room}
             element={<Property offers={offers} />}
           />
           <Route

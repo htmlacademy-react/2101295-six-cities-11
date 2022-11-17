@@ -6,7 +6,7 @@ import Map from '../../components/map/map';
 import { Offer } from '../../types/offers/offers';
 import OffersList from '../../components/offer-list/offer-list';
 import {useParams} from 'react-router-dom';
-import {OfferOnMain} from '../../const/const';
+import {OfferOnPropety} from '../../const/const';
 
 type PropertyPagesProps = {
   offers: Offer[];
@@ -14,8 +14,8 @@ type PropertyPagesProps = {
 
 function Property ({offers}: PropertyPagesProps): JSX.Element {
   const {id} = useParams();
-  const unThisCards = offers.filter((card) => card.id !== Number(id));
-  const thisCards = offers.find((card) => card.id === Number(id)) as Offer;
+  const similarCards = offers.filter((card) => card.id !== Number(id));
+  const currentCard = offers.find((card) => card.id === Number(id)) as Offer;
 
   return (
     <main className="page__main page__main--property">
@@ -58,9 +58,9 @@ function Property ({offers}: PropertyPagesProps): JSX.Element {
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
                 <span style={{width: '80%'}} />
-                <span className="visually-hidden">{thisCards.rating}</span>
+                <span className="visually-hidden">{currentCard.rating}</span>
               </div>
-              <span className="property__rating-value rating__value">{thisCards.rating}</span>
+              <span className="property__rating-value rating__value">{currentCard.rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
@@ -74,7 +74,7 @@ function Property ({offers}: PropertyPagesProps): JSX.Element {
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">{thisCards.price}</b>
+              <b className="property__price-value">{currentCard.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -148,9 +148,7 @@ function Property ({offers}: PropertyPagesProps): JSX.Element {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <OffersList forOut={'near-places__list places__list'} differences={OfferOnMain} offers={unThisCards}/>
-          </div>
+          <OffersList wrapperClassName={'near-places__list places__list'} classList={OfferOnPropety} offers={similarCards}/>
         </section>
       </div>
     </main>

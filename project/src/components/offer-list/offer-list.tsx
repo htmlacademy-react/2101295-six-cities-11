@@ -6,14 +6,14 @@ import {offerCardConfig} from '../../types/offers/offers';
 type OffersListProps = {
   offers: Offer[];
   onOfferMouseEnter?: (offerId: number | null) => void;
-  differences: offerCardConfig;
-  forOut: string;
+  classList: offerCardConfig;
+  wrapperClassName: string;
 }
 
-export default function OffersList({offers, onOfferMouseEnter, differences, forOut}: OffersListProps) {
+export default function OffersList({offers, onOfferMouseEnter, classList, wrapperClassName}: OffersListProps) {
   return(
-    <div className={forOut}>
-      {offers.map((offer) => <OneCard offer={offer} differences={differences} onOfferMouseEnter={onOfferMouseEnter} key={offer.id}/>)}
+    <div className={wrapperClassName}>
+      {offers.map((offer) => <OneCard offer={offer} differences={classList} onOfferMouseEnter={onOfferMouseEnter} key={offer.id}/>)}
     </div>
   );
 }

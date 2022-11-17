@@ -64,7 +64,7 @@ function FavoritesScreen(props: FavoritesPagesProps): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <OffersList forOut={'favorites__places'} differences={OfferOnFavorites} offers={favoritesOffer} />
+                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={favoritesOffer} />
               </li>
             </ul>
           </section>

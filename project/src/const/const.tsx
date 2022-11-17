@@ -4,7 +4,7 @@ export enum AppRoute {
 Main = '/',
 Login = '/login',
 Favorites = '/favorites',
-Room = '/offer'
+Room = '/offer/:id'
 }
 
 
@@ -39,15 +39,15 @@ export const OfferOnMain: offerCardConfig = {
 };
 
 
-export const OfferOnNearby: offerCardConfig = {
+export const OfferOnPropety: offerCardConfig = {
   class: {
-    forArticle: 'favorites__card',
-    forInfo: 'favorites__card-info',
-    forWrap: 'favorites__image-wrapper',
+    forArticle: 'near-places__card',
+    forInfo: '',
+    forWrap: 'near-places__image-wrapper',
   },
   size: {
-    width: '150',
-    hight: '110',
+    width: '260',
+    hight: '200',
   },
 };
 
