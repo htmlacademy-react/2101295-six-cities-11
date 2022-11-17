@@ -34,4 +34,3 @@ export type offerCardConfig = {
     hight: string;
   };
 }
-

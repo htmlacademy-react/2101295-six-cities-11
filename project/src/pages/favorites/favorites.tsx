@@ -1,6 +1,8 @@
-import FavoritesList from '../../components/favorites-list/favorites-list';
+//import FavoritesList from '../../components/favorites-list/favorites-list';
+import OffersList from '../../components/offer-list/offer-list';
 import { Helmet } from 'react-helmet-async';
 import { Offer} from '../../types/offers/offers';
+import {OfferOnFavorites} from '../../const/const';
 
 type FavoritesPagesProps = {
   offers: Offer[];
@@ -8,6 +10,7 @@ type FavoritesPagesProps = {
 
 function FavoritesScreen(props: FavoritesPagesProps): JSX.Element {
   const {offers} = props;
+  const favoritesOffer = offers.filter((offer) => offer.isFavorite === true);
   return (
     <div className="page">
       <Helmet>
@@ -61,7 +64,7 @@ function FavoritesScreen(props: FavoritesPagesProps): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <FavoritesList offers={offers} />
+                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={favoritesOffer} />
               </li>
             </ul>
           </section>

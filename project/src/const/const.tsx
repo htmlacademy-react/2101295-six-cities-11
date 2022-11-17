@@ -4,7 +4,7 @@ export enum AppRoute {
 Main = '/',
 Login = '/login',
 Favorites = '/favorites',
-Room = '/offer'
+Room = '/offer/:id'
 }
 
 
@@ -37,6 +37,20 @@ export const OfferOnMain: offerCardConfig = {
     hight: '200',
   },
 };
+
+
+export const OfferOnPropety: offerCardConfig = {
+  class: {
+    forArticle: 'near-places__card',
+    forInfo: '',
+    forWrap: 'near-places__image-wrapper',
+  },
+  size: {
+    width: '260',
+    hight: '200',
+  },
+};
+
 
 export const URL_MARKER_DEFAULT =
   '../../../img/pin.svg';

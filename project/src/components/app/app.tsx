@@ -7,14 +7,14 @@ import {HelmetProvider} from 'react-helmet-async';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const/const';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offers/offers';
+//import {Offer} from '../../types/offers/offers';
+import {offers} from '../../mocks/offers/offers';
 
 type AppScreenProps = {
   cardsCount: number;
-  offers: Offer[];
 }
 
-function App({cardsCount, offers}: AppScreenProps
+function App({cardsCount} : AppScreenProps
 ): JSX.Element {
   return (
     <HelmetProvider>
@@ -38,8 +38,8 @@ function App({cardsCount, offers}: AppScreenProps
             }
           />
           <Route
-            path={`${AppRoute.Room}/:id`}
-            element={<Property />}
+            path={AppRoute.Room}
+            element={<Property offers={offers} />}
           />
           <Route
             path="*"

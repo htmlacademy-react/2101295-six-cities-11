@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import { Offer } from '../../types/offers/offers';
+import {OfferOnMain} from '../../const/const';
 
 type MainPagesProps = {
  cardsCount: number;
@@ -107,7 +108,7 @@ function MainPages({cardsCount, offers}: MainPagesProps
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} onOfferMouseEnter={handleOfferMouseEnter}/>
+                <OffersList offers={offers} wrapperClassName={'cities__places-list places__list tabs__content'} classList={OfferOnMain} onOfferMouseEnter={handleOfferMouseEnter}/>
               </div>
             </section>
             <div className="cities__right-section">
