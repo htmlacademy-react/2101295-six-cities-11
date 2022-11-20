@@ -7,12 +7,12 @@ import { Offer } from '../../types/offers/offers';
 import OffersList from '../../components/offer-list/offer-list';
 import {useParams} from 'react-router-dom';
 import {OfferOnPropety} from '../../const/const';
+import {useAppSelector} from '../../hooks';
 
-type PropertyPagesProps = {
-  offers: Offer[];
- }
 
-function Property ({offers}: PropertyPagesProps): JSX.Element {
+function Property (): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const city = useAppSelector((state) => state.city);
   const {id} = useParams();
   const similarCards = offers.filter((card) => card.id !== Number(id));
   const currentCard = offers.find((card) => card.id === Number(id)) as Offer;
@@ -142,7 +142,7 @@ function Property ({offers}: PropertyPagesProps): JSX.Element {
           </div>
         </div>
         <section className="property__map map" >
-          <Map className={'property__map'} offers={offers} city={offers[0].city} selectedPoint={Number(id)}/>
+          <Map className={'property__map'} city={city} selectedPoint={Number(id)}/>
         </section>
       </section>
       <div className="container">
