@@ -1,9 +1,9 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {changeSelectedCityAction, setOffers} from './action';
-import {Offer} from '../types/offers/offers';
-import {offers} from '../mocks/offers/offers';
-import {City} from '../types/offers/offers';
-import {CITIES} from '../const/const';
+import { createReducer } from '@reduxjs/toolkit';
+import { changeSelectedCityAction, setOffers, sortOffersPriceLow} from './action';
+import { Offer } from '../types/offers/offers';
+import { offers } from '../mocks/offers/offers';
+import { City } from '../types/offers/offers';
+import { CITIES } from '../const/const';
 
 const initialState: {
   city: City;
@@ -20,6 +20,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload.offers;
+    })
+    .addCase(sortOffersPriceLow, (state) => {
+      state.offers = state.offers.sort((a, b) => a.price - b.price);
     });
 });
 

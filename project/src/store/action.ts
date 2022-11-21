@@ -13,3 +13,5 @@ export const setOffers = createAction('offers/setOffers', (city: string) => ({
     offers: offers.filter((offer) => offer.city.title === city),
   },
 }));
+
+export const sortOffersPriceLow = createAction('sort/sortOffersPriceLow');

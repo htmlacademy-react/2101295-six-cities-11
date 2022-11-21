@@ -87,7 +87,7 @@ export const offers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     previewImage: 'https://10.react.pages.academy/static/hotel/8.jpg',
-    price: 250,
+    price: 50,
     rating: 3.2,
     title: 'Уймонская долина',
     type: 'Apartment',
