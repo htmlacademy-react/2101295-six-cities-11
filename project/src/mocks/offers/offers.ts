@@ -3,10 +3,10 @@ import { Offer } from '../../types/offers/offers';
 export const offers: Offer[] = [
   {
     city: {
-      lat: 52.370216,
-      lng: 4.895168,
+      lat: 48.85661,
+      lng: 2.351499,
       zoom: 10,
-      title: 'Amsterdam',
+      title: 'Paris',
     },
     id: 1,
     images: [ 'https://10.react.pages.academy/static/hotel/8.jpg',
@@ -20,8 +20,8 @@ export const offers: Offer[] = [
     title: 'Портал Белуха',
     type: 'Apartment',
     location: {
-      lat: 52.3909553943508,
-      lng: 4.85309666406198,
+      lat: 48.85661,
+      lng: 2.351499,
       zoom: 8
     },
   },
@@ -87,7 +87,7 @@ export const offers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     previewImage: 'https://10.react.pages.academy/static/hotel/8.jpg',
-    price: 250,
+    price: 50,
     rating: 3.2,
     title: 'Уймонская долина',
     type: 'Apartment',

@@ -1,6 +1,5 @@
 import { Offer } from '../../types/offers/offers';
 import OneCard from '../one-card/one-card';
-//import {OfferOnMain} from '../../const/const';
 import {offerCardConfig} from '../../types/offers/offers';
 
 type OffersListProps = {

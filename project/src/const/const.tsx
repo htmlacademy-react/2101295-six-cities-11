@@ -51,6 +51,14 @@ export const OfferOnPropety: offerCardConfig = {
   },
 };
 
+export const CITIES = [
+  {title: 'Paris', lat: 48.85661, lng: 2.351499, zoom: 10,},
+  {title: 'Cologne', lat: 48.85661, lng: 2.351499, zoom: 10,},
+  {title: 'Brussels', lat: 48.85661, lng: 2.351499, zoom: 10,},
+  {title: 'Amsterdam', lat: 52.370216, lng: 4.895168, zoom: 10,},
+  {title: 'Hamburg', lat: 48.85661, lng: 2.351499, zoom: 10,},
+  {title: 'Dusseldorf', lat: 48.85661, lng: 2.351499, zoom: 10,},
+] as const;
 
 export const URL_MARKER_DEFAULT =
   '../../../img/pin.svg';
