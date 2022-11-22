@@ -1,17 +1,12 @@
-//import { useEffect } from 'react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {CITIES} from '../../const/const';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {changeSelectedCityAction, setOffers} from '../../store/action';
+import {changeSelectedCityAction} from '../../store/action';
 
 
 export default function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
   const selectedCity = useAppSelector((state) => state.city);
-  useEffect(() => {
-    dispatch(setOffers(selectedCity.title));
-  }, [dispatch, selectedCity]);
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -25,7 +20,6 @@ export default function CitiesList(): JSX.Element {
               to="#"
               onClick={() => {
                 dispatch(changeSelectedCityAction(city));
-                dispatch(setOffers(city.title));
               }}
             >
               <span>{city.title}</span>

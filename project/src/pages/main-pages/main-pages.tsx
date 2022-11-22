@@ -2,15 +2,14 @@ import { useState } from 'react';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import SortForm from '../../components/sorting-places/sorting-places';
-//import { Offer } from '../../types/offers/offers';
 import {OfferOnMain} from '../../const/const';
 import CitiesList from '../../components/city-list/city-list';
 import {useAppSelector} from '../../hooks/index';
-//import { getOffersAction } from '../../store/action';
+
 
 function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const offers = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
   const handleOfferMouseEnter = (offerId: number | null) => {
     setActiveOffer(offerId);
