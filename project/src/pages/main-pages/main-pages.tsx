@@ -9,7 +9,7 @@ import {useAppSelector} from '../../hooks/index';
 
 function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
-  const offerss = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
+  const offers = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
   const handleOfferMouseEnter = (offerId: number | null) => {
     setActiveOffer(offerId);
@@ -55,10 +55,10 @@ function MainPages(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerss.length} places to stay in {city.title}</b>
+              <b className="places__found">{offers.length} places to stay in {city.title}</b>
               <SortForm/>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offerss} wrapperClassName={'cities__places-list places__list tabs__content'} classList={OfferOnMain} onOfferMouseEnter={handleOfferMouseEnter}/>
+                <OffersList offers={offers} wrapperClassName={'cities__places-list places__list tabs__content'} classList={OfferOnMain} onOfferMouseEnter={handleOfferMouseEnter}/>
               </div>
             </section>
             <div className="cities__right-section">

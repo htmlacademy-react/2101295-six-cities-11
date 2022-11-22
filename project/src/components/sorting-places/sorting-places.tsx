@@ -1,5 +1,3 @@
-//import { arrayFromVar } from ''
-// import { offers } from '../../mocks/offers/offers';
 import {useAppDispatch} from '../../hooks/index';
 import {sortOffersPriceLow} from '../../store/action';
 
