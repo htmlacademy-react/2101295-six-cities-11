@@ -1,6 +1,6 @@
-//import { arrayFromVar } from '';
-
-import { useAppDispatch } from '../../hooks/index';
+//import { arrayFromVar } from ''
+// import { offers } from '../../mocks/offers/offers';
+import {useAppDispatch} from '../../hooks/index';
 import {sortOffersPriceLow} from '../../store/action';
 
 export default function SortForm(): JSX.Element {
@@ -29,7 +29,7 @@ export default function SortForm(): JSX.Element {
           tabIndex={0}
           onClick={() => dispatch(sortOffersPriceLow())}
         >
-          sdfkjvbnsjdfhvjhdf
+          Price: low to high
         </li>
 
 

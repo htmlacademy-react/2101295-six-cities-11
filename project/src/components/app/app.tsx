@@ -7,15 +7,14 @@ import {HelmetProvider} from 'react-helmet-async';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const/const';
 import PrivateRoute from '../private-route/private-route';
-//import {offers} from '../../mocks/offers/offers';
+import { useAppDispatch } from '../../hooks';
+import { setOffers } from '../../store/action';
+import { offers } from '../../mocks/offers/offers';
 
-type AppScreenProps = {
-  cardsCount: number;
-}
 
-function App({cardsCount} : AppScreenProps
-): JSX.Element {
-
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(setOffers(offers));
   return (
     <HelmetProvider>
       <BrowserRouter>

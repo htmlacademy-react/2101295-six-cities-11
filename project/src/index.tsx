@@ -8,16 +8,10 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const Setting = {
-  CardsCount: 400,
-} as const;
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        cardsCount = {Setting.CardsCount}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>,
 );
