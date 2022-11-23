@@ -1,19 +1,19 @@
 // я опять забыл переключиться в начале выполнения задания
 import { useState } from 'react';
-import { arrayFromVar } from '../../const/const';
+import { SORT_TYPES } from '../../const/const';
 import { useAppDispatch, useAppSelector} from '../../hooks/index';
-import { changeTypeSort } from '../../store/action';
+import { changeSortType } from '../../store/action';
 
 export default function SortForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const [isSortListOpen, setSortListStatus] = useState(false);
   const typeSort = useAppSelector((state) => state.typeSort);
 
-  const toogleListHandler = () => setSortListStatus(!isSortListOpen);
+  const handleToggleMouseEnter = () => setSortListStatus(!isSortListOpen);
 
 
   return (
-    <form className="places__sorting" action="#" method="get" onMouseEnter={toogleListHandler} onMouseLeave={toogleListHandler}>
+    <form className="places__sorting" action="#" method="get" onMouseEnter={handleToggleMouseEnter} onMouseLeave={handleToggleMouseEnter}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
         Popular
@@ -22,12 +22,12 @@ export default function SortForm(): JSX.Element {
         </svg>
       </span>
       <ul className= {`${isSortListOpen ? 'places__options--opened' : ''} places__options places__options--custom`}>
-        {arrayFromVar.map((el) => (
+        {SORT_TYPES.map((el) => (
           <li
             key={el.type}
             className={`places__option  ${el.type === typeSort ? 'places__option--active' : ''} `}
             tabIndex={0}
-            onClick={() => dispatch(changeTypeSort(el.type))}
+            onClick={() => dispatch(changeSortType(el.type))}
           >
             {el.title}
           </li>))};

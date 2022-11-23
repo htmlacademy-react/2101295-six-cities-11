@@ -10,9 +10,9 @@ import { Offer } from '../../types/offers/offers';
 
 function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
-  const typeSort = useAppSelector((state) => state.typeSort);
+  const sortType = useAppSelector((state) => state.typeSort);
   //пока-что не знаю куда эту функцию вынести, позже поди заведу компонент utilits
-  const sortedOffer = function (offers: Offer[], type: number) {
+  const getSortedOffers = function (offers: Offer[], type: number) {
     switch (type) {
       case 2: return offers.sort((a, b) => a.price - b.price);
       case 3: return offers.sort((a, b) => b.price - a.price);
@@ -22,7 +22,7 @@ function MainPages(): JSX.Element {
   };
 
   const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
-  const offersAfterSort = sortedOffer(offersBeforeSort, typeSort);
+  const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
 
 
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
@@ -73,7 +73,8 @@ function MainPages(): JSX.Element {
               <b className="places__found">{offersAfterSort.length} places to stay in {city.title}</b>
               <SortForm />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offersAfterSort}
+                <OffersList
+                  offers={offersAfterSort}
                   wrapperClassName={'cities__places-list places__list tabs__content'}
                   classList={OfferOnMain}
                   onOfferMouseEnter={handleOfferMouseEnter}
@@ -81,7 +82,8 @@ function MainPages(): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map className={'cities__map'}
+              <Map
+                className={'cities__map'}
                 city={city}
                 selectedPoint={currentOffer}
               />

@@ -10,4 +10,4 @@ export const changeSelectedCityAction = createAction('city/changeCity', (city: C
 
 export const setOffers = createAction<Offer[]>('offers/setOffers');
 
-export const changeTypeSort = createAction<number>('offers/typeSort');
+export const changeSortType = createAction<number>('offers/typeSort');
