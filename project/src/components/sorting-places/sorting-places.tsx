@@ -1,3 +1,4 @@
+// я опять забыл переключиться в начале выполнения задания
 import { useState } from 'react';
 import { arrayFromVar } from '../../const/const';
 import { useAppDispatch, useAppSelector} from '../../hooks/index';

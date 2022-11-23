@@ -11,8 +11,8 @@ import { Offer } from '../../types/offers/offers';
 function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
   const typeSort = useAppSelector((state) => state.typeSort);
-
-  const ghgh = function (offers: Offer[], type: number) {
+  //пока-что не знаю куда эту функцию вынести, позже поди заведу компонент utilits
+  const sortedOffer = function (offers: Offer[], type: number) {
     switch (type) {
       case 2: return offers.sort((a, b) => a.price - b.price);
       case 3: return offers.sort((a, b) => b.price - a.price);
@@ -21,8 +21,8 @@ function MainPages(): JSX.Element {
     }
   };
 
-  const offerss = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
-  const offers = ghgh(offerss, typeSort);
+  const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
+  const offersAfterSort = sortedOffer(offersBeforeSort, typeSort);
 
 
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
@@ -70,10 +70,10 @@ function MainPages(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city.title}</b>
+              <b className="places__found">{offersAfterSort.length} places to stay in {city.title}</b>
               <SortForm />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers}
+                <OffersList offers={offersAfterSort}
                   wrapperClassName={'cities__places-list places__list tabs__content'}
                   classList={OfferOnMain}
                   onOfferMouseEnter={handleOfferMouseEnter}
