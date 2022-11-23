@@ -11,7 +11,6 @@ import { useAppDispatch } from '../../hooks';
 import { setOffers } from '../../store/action';
 import { offers } from '../../mocks/offers/offers';
 
-
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   dispatch(setOffers(offers));

@@ -8,10 +8,6 @@ export const changeSelectedCityAction = createAction('city/changeCity', (city: C
   },
 }));
 
-export const setOffers = createAction('offers/setOffers', (offers: Offer[]) => ({
-  payload: {
-    offers: offers
-  },
-}));
+export const setOffers = createAction<Offer[]>('offers/setOffers');
 
-export const sortOffersPriceLow = createAction('offers/setOffersLow');
+export const changeSortType = createAction<number>('offers/typeSort');

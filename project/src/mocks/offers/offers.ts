@@ -4,7 +4,7 @@ export const offers: Offer[] = [
   {
     city: {
       lat: 48.85661,
-      lng: 2.351499,
+      lng: 4.895168,
       zoom: 10,
       title: 'Paris',
     },
@@ -21,7 +21,7 @@ export const offers: Offer[] = [
     type: 'Apartment',
     location: {
       lat: 48.85661,
-      lng: 2.351499,
+      lng: 2.3522219,
       zoom: 8
     },
   },
@@ -87,7 +87,7 @@ export const offers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     previewImage: 'https://10.react.pages.academy/static/hotel/8.jpg',
-    price: 50,
+    price: 250,
     rating: 3.2,
     title: 'Уймонская долина',
     type: 'Apartment',

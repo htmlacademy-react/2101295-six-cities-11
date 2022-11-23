@@ -2,14 +2,29 @@ import { useState } from 'react';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import SortForm from '../../components/sorting-places/sorting-places';
-import {OfferOnMain} from '../../const/const';
+import { OfferOnMain } from '../../const/const';
 import CitiesList from '../../components/city-list/city-list';
-import {useAppSelector} from '../../hooks/index';
+import { useAppSelector } from '../../hooks/index';
+import { Offer } from '../../types/offers/offers';
 
 
 function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
-  const offers = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
+  const sortType = useAppSelector((state) => state.typeSort);
+  //пока-что не знаю куда эту функцию вынести, позже поди заведу компонент utilits
+  const getSortedOffers = function (offers: Offer[], type: number) {
+    switch (type) {
+      case 2: return offers.sort((a, b) => a.price - b.price);
+      case 3: return offers.sort((a, b) => b.price - a.price);
+      case 4: return offers.sort((a, b) => a.rating - b.rating);
+      default: return offers;
+    }
+  };
+
+  const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
+  const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
+
+
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
   const handleOfferMouseEnter = (offerId: number | null) => {
     setActiveOffer(offerId);
@@ -55,14 +70,23 @@ function MainPages(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city.title}</b>
-              <SortForm/>
+              <b className="places__found">{offersAfterSort.length} places to stay in {city.title}</b>
+              <SortForm />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} wrapperClassName={'cities__places-list places__list tabs__content'} classList={OfferOnMain} onOfferMouseEnter={handleOfferMouseEnter}/>
+                <OffersList
+                  offers={offersAfterSort}
+                  wrapperClassName={'cities__places-list places__list tabs__content'}
+                  classList={OfferOnMain}
+                  onOfferMouseEnter={handleOfferMouseEnter}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <Map className={'cities__map'} city={city} selectedPoint={currentOffer} />
+              <Map
+                className={'cities__map'}
+                city={city}
+                selectedPoint={currentOffer}
+              />
             </div>
           </div>
         </div>
@@ -73,3 +97,4 @@ function MainPages(): JSX.Element {
 }
 
 export default MainPages;
+
