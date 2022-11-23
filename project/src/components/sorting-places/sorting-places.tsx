@@ -1,10 +1,18 @@
-import {useAppDispatch} from '../../hooks/index';
-import {sortOffersPriceLow} from '../../store/action';
+import { useState } from 'react';
+import { arrayFromVar } from '../../const/const';
+import { useAppDispatch, useAppSelector} from '../../hooks/index';
+import { changeTypeSort } from '../../store/action';
 
 export default function SortForm(): JSX.Element {
   const dispatch = useAppDispatch();
+  const [isSortListOpen, setSortListStatus] = useState(false);
+  const typeSort = useAppSelector((state) => state.typeSort);
+
+  const toogleListHandler = () => setSortListStatus(!isSortListOpen);
+
+
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" onMouseEnter={toogleListHandler} onMouseLeave={toogleListHandler}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
         Popular
@@ -12,26 +20,17 @@ export default function SortForm(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
-        {/* {arrayFromVar.map((el) => (
+      <ul className= {`${isSortListOpen ? 'places__options--opened' : ''} places__options places__options--custom`}>
+        {arrayFromVar.map((el) => (
           <li
-            key={el.price}
-            className={`places__option  ${sortType === CurrentSortType ? 'places__option--active' : ''} `}
+            key={el.type}
+            className={`places__option  ${el.type === typeSort ? 'places__option--active' : ''} `}
             tabIndex={0}
-            onClick={handleChange}
+            onClick={() => dispatch(changeTypeSort(el.type))}
           >
-            {el}
-          </li>))}; */}
-        <li
-          className="places__option places__options--custom places__options--opened"
-          tabIndex={0}
-          onClick={() => dispatch(sortOffersPriceLow())}
-        >
-          Price: low to high
-        </li>
-
-
+            {el.title}
+          </li>))};
       </ul>
-    </form>
+    </form >
   );
 }

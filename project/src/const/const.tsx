@@ -60,6 +60,12 @@ export const CITIES = [
   {title: 'Dusseldorf', lat: 48.85661, lng: 2.351499, zoom: 10,},
 ] as const;
 
+export const arrayFromVar = [
+  { title: 'Popular', type: 1 },
+  { title: 'Price: low to high', type: 2 },
+  { title: 'Price: high to low', type: 3 },
+  { title: 'Top rated first', type: 4 }
+] as const;
 export const URL_MARKER_DEFAULT =
   '../../../img/pin.svg';
 

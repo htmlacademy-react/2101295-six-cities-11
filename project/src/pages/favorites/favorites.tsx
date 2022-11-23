@@ -1,7 +1,5 @@
-//import FavoritesList from '../../components/favorites-list/favorites-list';
 import OffersList from '../../components/offer-list/offer-list';
 import { Helmet } from 'react-helmet-async';
-//import { Offer} from '../../types/offers/offers';
 import {OfferOnFavorites} from '../../const/const';
 import {useAppSelector} from '../../hooks';
 
