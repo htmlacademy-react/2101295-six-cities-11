@@ -1,28 +1,28 @@
-import {Offer, DateForCards} from '../../types/offers/offers';
+import {Offer, offerCardConfig} from '../../types/offers/offers';
 import {Link} from 'react-router-dom';
-import { HTMLAttributes } from 'react';
 
 type FavoritesCardProps = {
   offer: Offer;
-  differences: DateForCards;
-} & HTMLAttributes<HTMLTitleElement>
+  differences: offerCardConfig;
+  onOfferMouseEnter?: (offerId: number | null) => void;
+}
 
 
-export default function OneCard({ offer, differences, onMouseEnter, onMouseLeave }: FavoritesCardProps): JSX.Element {
+export default function OneCard({ offer, differences, onOfferMouseEnter }: FavoritesCardProps): JSX.Element {
   return (
-    <article className={`place-card ${differences.forArticle}`} id={offer.id.toString()} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => onOfferMouseEnter?.(offer.id)} onMouseLeave={() => onOfferMouseEnter?.(null)}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
-      <div className={`place-card__image-wrapper ${differences.forWrap}`}>
+      <div className={`place-card__image-wrapper ${differences.class.forWrap}`}>
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image"
             src={offer.previewImage}
-            width={differences.width}
-            height={differences.hight}
+            width={differences.size.width}
+            height={differences.size.hight}
             alt="img"
           />
         </Link>
       </div>
-      <div className={`${differences.forInfo} place-card__info`}>
+      <div className={`${differences.class.forInfo} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{offer.price}</b>

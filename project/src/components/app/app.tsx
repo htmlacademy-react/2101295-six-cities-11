@@ -7,22 +7,33 @@ import {HelmetProvider} from 'react-helmet-async';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const/const';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offers/offers';
-
-type AppScreenProps = {
-  cardsCount: number;
-  offers: Offer[];
+import { useAppSelector } from '../../hooks';
+// import { useAppDispatch } from '../../hooks';
+// import { loadOffers } from '../../store/action';
+// import { offers } from '../../mocks/offers/offers';
+function LoadingScreen(): JSX.Element {
+  return (
+    <p>Loading ...</p>
+  );
 }
 
-function App({cardsCount, offers}: AppScreenProps
-): JSX.Element {
+//export default LoadingScreen;
+function App(): JSX.Element {
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  if (isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+  // const dispatch = useAppDispatch();
+  // dispatch(loadOffers(offers));
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPages cardsCount={cardsCount} offers={offers}/>}
+            element={<MainPages/>}
           />
           <Route
             path={AppRoute.Login}
@@ -33,12 +44,12 @@ function App({cardsCount, offers}: AppScreenProps
             element={
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
-              ><FavoritesScreen offers= {offers}/>
+              ><FavoritesScreen/>
               </PrivateRoute>
             }
           />
           <Route
-            path={`${AppRoute.Room}/:id`}
+            path={AppRoute.Room}
             element={<Property />}
           />
           <Route

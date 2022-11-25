@@ -1,8 +1,10 @@
+import { offerCardConfig } from '../types/offers/offers';
+
 export enum AppRoute {
-Main = '/',
-Login = '/login',
-Favorites = '/favorites',
-Room = '/offer'
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Room = '/offer/:id'
 }
 
 
@@ -12,18 +14,67 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum OfferOnFavorites {
-  forArticle = 'favorites__card',
-  forInfo = 'favorites__card-info',
-  forWrap = 'favorites__image-wrapper',
-  width = '150',
-  hight = '110',
-}
+export const OfferOnFavorites: offerCardConfig = {
+  class: {
+    forArticle: 'favorites__card',
+    forInfo: 'favorites__card-info',
+    forWrap: 'favorites__image-wrapper',
+  },
+  size: {
+    width: '150',
+    hight: '110',
+  },
+};
 
-export enum OfferOnMain {
-  forArticle = 'cities__card',
-  forInfo = '',
-  forWrap = 'cities__image-wrapper',
-  width = '260',
-  hight = '200',
+export const OfferOnMain: offerCardConfig = {
+  class: {
+    forArticle: 'cities__card',
+    forInfo: '',
+    forWrap: 'cities__image-wrapper',
+  },
+  size: {
+    width: '260',
+    hight: '200',
+  },
+};
+
+
+export const OfferOnPropety: offerCardConfig = {
+  class: {
+    forArticle: 'near-places__card',
+    forInfo: '',
+    forWrap: 'near-places__image-wrapper',
+  },
+  size: {
+    width: '260',
+    hight: '200',
+  },
+};
+
+export const CITIES = [
+  { name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Cologne', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Brussels', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Amsterdam', location: {latitude: 52.370216, longitude: 4.895168, zoom: 10, }},
+  { name: 'Hamburg', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Dusseldorf', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+] as const;
+
+export const SORT_TYPES = [
+  { title: 'Popular', type: 1 },
+  { title: 'Price: low to high', type: 2 },
+  { title: 'Price: high to low', type: 3 },
+  { title: 'Top rated first', type: 4 }
+] as const;
+
+export const URL_MARKER_DEFAULT =
+  '../../../img/pin.svg';
+
+export const URL_MARKER_CURRENT =
+  '../../../img/pin-active.svg';
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
 }
