@@ -30,19 +30,19 @@ function Map(props: MapProps): JSX.Element {
   //const city = useAppSelector((state) => state.city);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const mapEl = offers.filter((el) => el.city.title === city.title);
+  const mapEl = offers.filter((el) => el.city.name === city.name);
 
   useEffect(() => {
     const markers: Marker[] = [];
     if (map) {
       map.setView({
-        lat: city.lat,
-        lng: city.lng
-      }, city.zoom);
+        lat: city.location.latitude,
+        lng: city.location.longitude
+      }, city.location.zoom);
       mapEl.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.location.lat,
-          lng: offer.location.lng
+          lat: offer.location.latitude,
+          lng: offer.location.longitude
         });
         markers.push(marker);
         marker

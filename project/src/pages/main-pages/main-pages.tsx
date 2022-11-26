@@ -11,7 +11,7 @@ import { Offer } from '../../types/offers/offers';
 function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.typeSort);
-  //пока-что не знаю куда эту функцию вынести, позже поди заведу компонент utilits
+
   const getSortedOffers = function (offers: Offer[], type: number) {
     switch (type) {
       case 2: return offers.sort((a, b) => a.price - b.price);
@@ -21,7 +21,7 @@ function MainPages(): JSX.Element {
     }
   };
 
-  const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.title === city.title);
+  const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.name === city.name);
   const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
 
 
@@ -70,7 +70,7 @@ function MainPages(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersAfterSort.length} places to stay in {city.title}</b>
+              <b className="places__found">{offersAfterSort.length} places to stay in {city.name}</b>
               <SortForm />
               <div className="cities__places-list places__list tabs__content">
                 <OffersList

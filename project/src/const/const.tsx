@@ -1,10 +1,10 @@
-import {offerCardConfig} from '../types/offers/offers';
+import { offerCardConfig } from '../types/offers/offers';
 
 export enum AppRoute {
-Main = '/',
-Login = '/login',
-Favorites = '/favorites',
-Room = '/offer/:id'
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Room = '/offer/:id'
 }
 
 
@@ -52,12 +52,12 @@ export const OfferOnPropety: offerCardConfig = {
 };
 
 export const CITIES = [
-  {title: 'Paris', lat: 48.85661, lng: 2.351499, zoom: 10,},
-  {title: 'Cologne', lat: 48.85661, lng: 2.351499, zoom: 10,},
-  {title: 'Brussels', lat: 48.85661, lng: 2.351499, zoom: 10,},
-  {title: 'Amsterdam', lat: 52.370216, lng: 4.895168, zoom: 10,},
-  {title: 'Hamburg', lat: 48.85661, lng: 2.351499, zoom: 10,},
-  {title: 'Dusseldorf', lat: 48.85661, lng: 2.351499, zoom: 10,},
+  { name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Cologne', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Brussels', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Amsterdam', location: {latitude: 52.370216, longitude: 4.895168, zoom: 10, }},
+  { name: 'Hamburg', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
+  { name: 'Dusseldorf', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
 ] as const;
 
 export const SORT_TYPES = [
@@ -72,3 +72,9 @@ export const URL_MARKER_DEFAULT =
 
 export const URL_MARKER_CURRENT =
   '../../../img/pin-active.svg';
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}

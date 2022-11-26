@@ -8,6 +8,7 @@ export const changeSelectedCityAction = createAction('city/changeCity', (city: C
   },
 }));
 
-export const setOffers = createAction<Offer[]>('offers/setOffers');
-
+export const loadOffers = createAction<Offer[]>('offers/loadOffers');
+export const setError = createAction<string | null>('game/setError');
+export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 export const changeSortType = createAction<number>('offers/typeSort');

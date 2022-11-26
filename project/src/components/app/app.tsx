@@ -7,13 +7,26 @@ import {HelmetProvider} from 'react-helmet-async';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const/const';
 import PrivateRoute from '../private-route/private-route';
-import { useAppDispatch } from '../../hooks';
-import { setOffers } from '../../store/action';
-import { offers } from '../../mocks/offers/offers';
+import { useAppSelector } from '../../hooks';
+// import { useAppDispatch } from '../../hooks';
+// import { loadOffers } from '../../store/action';
+// import { offers } from '../../mocks/offers/offers';
+function LoadingScreen(): JSX.Element {
+  return (
+    <p>Loading ...</p>
+  );
+}
 
+//export default LoadingScreen;
 function App(): JSX.Element {
-  const dispatch = useAppDispatch();
-  dispatch(setOffers(offers));
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  if (isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+  // const dispatch = useAppDispatch();
+  // dispatch(loadOffers(offers));
   return (
     <HelmetProvider>
       <BrowserRouter>

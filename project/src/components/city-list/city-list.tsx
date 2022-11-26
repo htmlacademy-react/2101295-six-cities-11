@@ -13,16 +13,16 @@ export default function CitiesList(): JSX.Element {
         {CITIES.map((city) => (
           <li
             className="locations__item"
-            key={city.title}
+            key={city.name}
           >
             <Link
-              className={`${city.title === selectedCity.title ? 'tabs__item--active' : ''} locations__item-link tabs__item `}
+              className={`${city.name === selectedCity.name ? 'tabs__item--active' : ''} locations__item-link tabs__item `}
               to="#"
               onClick={() => {
                 dispatch(changeSelectedCityAction(city));
               }}
             >
-              <span>{city.title}</span>
+              <span>{city.name}</span>
             </Link>
           </li>))}
       </ul>
