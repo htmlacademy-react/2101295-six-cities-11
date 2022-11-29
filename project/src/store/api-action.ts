@@ -3,22 +3,10 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AuthorizationStatus, AppRoute } from '../const/const';
 import { Offer } from '../types/offers/offers';
 import { AppDispatch, State } from '../types/state/state';
-import { loadOffers , requireAuthorization, setError, setOffersDataLoadingStatus, redirectToRoute} from './action';
-
-import {store} from './';
+import { loadOffers , requireAuthorization, setOffersDataLoadingStatus, redirectToRoute} from './action';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-
-export const clearErrorAction = createAsyncThunk(
-  'offers/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      4000,
-    );
-  },
-);
 
 export const fetchOfferAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

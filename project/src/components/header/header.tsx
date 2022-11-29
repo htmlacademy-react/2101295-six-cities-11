@@ -3,6 +3,7 @@ import { AuthorizationStatus } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {AppRoute} from '../../const/const';
 import { logoutAction } from '../../store/api-action';
+import Logo from '../logo/logo';
 
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,11 +12,7 @@ export default function Header(): JSX.Element {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          <div className="header__left">
-            <a className="header__logo-link header__logo-link--active">
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-            </a>
-          </div>
+          <Logo classAction={'header__logo-link--active'}/>
           <nav className="header__nav">
             {authorizationStatus === AuthorizationStatus.Auth ?
               <ul className="header__nav-list">

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSelectedCityAction, loadOffers, changeSortType, setError, setOffersDataLoadingStatus, requireAuthorization} from './action';
+import { changeSelectedCityAction, loadOffers, changeSortType, setOffersDataLoadingStatus, requireAuthorization} from './action';
 import { Offer } from '../types/offers/offers';
 import { City } from '../types/offers/offers';
 import { AuthorizationStatus, CITIES } from '../const/const';
@@ -34,9 +34,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
