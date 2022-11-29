@@ -1,14 +1,14 @@
 import {Offer, offerCardConfig} from '../../types/offers/offers';
 import {Link} from 'react-router-dom';
 
-type FavoritesCardProps = {
+type CardProps = {
   offer: Offer;
   differences: offerCardConfig;
   onOfferMouseEnter?: (offerId: number | null) => void;
 }
 
 
-export default function OneCard({ offer, differences, onOfferMouseEnter }: FavoritesCardProps): JSX.Element {
+export default function OneCard({ offer, differences, onOfferMouseEnter }: CardProps): JSX.Element {
   return (
     <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => onOfferMouseEnter?.(offer.id)} onMouseLeave={() => onOfferMouseEnter?.(null)}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
