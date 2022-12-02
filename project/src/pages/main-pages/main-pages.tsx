@@ -1,35 +1,64 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import SortForm from '../../components/sorting-places/sorting-places';
-import { OfferOnMain } from '../../const/const';
+import { AuthorizationStatus, OfferOnMain } from '../../const/const';
 import CitiesList from '../../components/city-list/city-list';
-import { useAppSelector } from '../../hooks/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { Offer } from '../../types/offers/offers';
 import Header from '../../components/header/header';
+import { fetchOfferAction } from '../../store/api-action';
+
+function LoadingScreen(): JSX.Element {
+  return (
+    <p>Loading ...</p>
+  );
+}
+
+
+const getSortedOffers = function (offers: Offer[], type: number) {
+  switch (type) {
+    case 2: return offers.sort((a, b) => a.price - b.price);
+    case 3: return offers.sort((a, b) => b.price - a.price);
+    case 4: return offers.sort((a, b) => a.rating - b.rating);
+    default: return offers;
+  }
+};
 
 
 function MainPages(): JSX.Element {
+
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.typeSort);
 
-  const getSortedOffers = function (offers: Offer[], type: number) {
-    switch (type) {
-      case 2: return offers.sort((a, b) => a.price - b.price);
-      case 3: return offers.sort((a, b) => b.price - a.price);
-      case 4: return offers.sort((a, b) => a.rating - b.rating);
-      default: return offers;
-    }
-  };
+
+  //const offers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOfferAction());
+  },[]);
+  // if(offers.length === 0) {
+  //   dispatch(fetchOfferAction());
+  // }
 
   const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.name === city.name);
   const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
-
 
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
   const handleOfferMouseEnter = (offerId: number | null) => {
     setActiveOffer(offerId);
   };
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
+
+    return (
+      <LoadingScreen />
+    );
+  }
+
 
   return (
     <div className="page page--gray page--main">
@@ -57,6 +86,7 @@ function MainPages(): JSX.Element {
             </section>
             <div className="cities__right-section">
               <Map
+                offers={offersBeforeSort}
                 className={'cities__map'}
                 city={city}
                 selectedPoint={currentOffer}

@@ -1,3 +1,5 @@
+import { Review } from '../reviews/reviews';
+
 export type City = {
   location: {
     latitude: number;
@@ -5,6 +7,12 @@ export type City = {
     zoom: number;
   };
   name: string;
+};
+
+export type CurrentOffer = {
+  offer: Offer;
+  offerNerby: Offer[];
+  review: Review;
 };
 
 export type Offer = {

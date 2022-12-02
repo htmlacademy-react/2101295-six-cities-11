@@ -5,7 +5,6 @@ type ReviewsItemProps = {
 }
 
 export default function ReviewsItem ({review}: ReviewsItemProps): JSX.Element {
-  const {name, rating, text, date} = review;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -13,20 +12,20 @@ export default function ReviewsItem ({review}: ReviewsItemProps): JSX.Element {
           <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">
-          {name}
+          {review.user.name}
         </span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${(Math.round(rating)) * 20}%`}} />
-            <span className="visually-hidden">{rating}</span>
+            <span style={{width: `${(Math.round(review.rating)) * 20}%`}} />
+            <span className="visually-hidden">{review.rating}</span>
           </div>
         </div>
         <p className="reviews__text">
-          {text}
+          {review.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
       </div>
     </li>
   );

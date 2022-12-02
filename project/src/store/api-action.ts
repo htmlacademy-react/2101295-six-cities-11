@@ -3,10 +3,11 @@ import { AxiosInstance } from 'axios';
 import { APIRoute, AuthorizationStatus, AppRoute } from '../const/const';
 import { Offer } from '../types/offers/offers';
 import { AppDispatch, State } from '../types/state/state';
-import { loadOffers , requireAuthorization, setOffersDataLoadingStatus, redirectToRoute} from './action';
+import { loadOffers, requireAuthorization, setOffersDataLoadingStatus, redirectToRoute} from './action';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
+//import { Review, ReviewDate } from '../types/reviews/reviews';
 
 export const fetchOfferAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -30,7 +31,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     try {
       await api.get(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
@@ -47,8 +48,8 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }
 >(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
@@ -62,9 +63,22 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );
+
+// export const sendNewReviewAction = createAsyncThunk<void, undefined, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }
+// >(
+//   'data/sendReview',
+//   async ({id, rating, comment}, {dispatch, extra: api}) => {
+//     const {data} = await api.post<Review[]>(`${APIRoute.Reviews}/${id as string}`, {rating, comment});
+//     dispatch(sendNewReview(data));
+//   },
+// );
