@@ -1,7 +1,7 @@
 import MainPages from '../../pages/main-pages/main-pages';
 import Login from '../../pages/login/login';
 import FavoritesScreen from '../../pages/favorites/favorites';
-import Property from '../../pages/property/property';
+import Property from '../../pages/room/room';
 import NotFoundScreen from '../../pages/not-found/not-found';
 import {HelmetProvider} from 'react-helmet-async';
 import {Route, Routes} from 'react-router-dom';
