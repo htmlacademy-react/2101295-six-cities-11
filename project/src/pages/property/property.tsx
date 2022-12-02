@@ -10,6 +10,7 @@ import { useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 import { Review } from '../../types/reviews/reviews';
 import { api } from '../../store';
+import Gallery from '../../components/property-details/property-gallery';
 
 
 function Property(): JSX.Element {
@@ -66,28 +67,7 @@ function Property(): JSX.Element {
         <title>Объявления</title>
       </Helmet>
       <section className="property">
-        <div className="property__gallery-container container">
-          <div className="property__gallery">
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
-          </div>
-        </div>
+        <Gallery key={offer?.id} photos={offer?.images} alt={offer?.type} />
         <div className="property__container container">
           <div className="property__wrapper">
             <div className="property__mark">
