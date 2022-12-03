@@ -1,4 +1,4 @@
-import MainPages from '../../pages/main-pages/main-pages';
+import MainPages from '../../pages/main-page/main-page';
 import Login from '../../pages/login/login';
 import FavoritesScreen from '../../pages/favorites/favorites';
 import Property from '../../pages/room/room';

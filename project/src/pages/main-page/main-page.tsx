@@ -8,12 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { Offer } from '../../types/offers/offers';
 import Header from '../../components/header/header';
 import { fetchOfferAction } from '../../store/api-action';
-
-function LoadingScreen(): JSX.Element {
-  return (
-    <p>Loading ...</p>
-  );
-}
+import LoadingScreen from '../../components/loader/loader';
 
 
 const getSortedOffers = function (offers: Offer[], type: number) {
@@ -31,15 +26,10 @@ function MainPages(): JSX.Element {
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.typeSort);
 
-
-  //const offers = useAppSelector((state) => state.offers);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOfferAction());
-  },[]);
-  // if(offers.length === 0) {
-  //   dispatch(fetchOfferAction());
-  // }
+  },[dispatch]);
 
   const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.name === city.name);
   const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
@@ -53,7 +43,6 @@ function MainPages(): JSX.Element {
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
-
     return (
       <LoadingScreen />
     );

@@ -56,7 +56,7 @@ function Property(): JSX.Element {
     getOffer();
     getNearbyOffers();
     getComments();
-  }, [offer]);
+  }, [id]);
 
 
   if (offer !== null) {
