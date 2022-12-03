@@ -1,4 +1,3 @@
-// я опять забыл переключиться в начале выполнения задания
 import { useState } from 'react';
 import { SORT_TYPES } from '../../const/const';
 import { useAppDispatch, useAppSelector} from '../../hooks/index';

@@ -1,6 +1,10 @@
 import axios, {AxiosInstance, AxiosResponse, AxiosError, AxiosRequestConfig} from 'axios';
 import {StatusCodes} from 'http-status-codes';
 import {toast} from 'react-toastify';
+//import { APIRoute } from '../const/const';
+//import { api } from '../store';
+// import { Offer } from '../types/offers/offers';
+// import { Review } from '../types/reviews/reviews';
 import {getToken} from './token';
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -45,3 +49,16 @@ export const createAPI = (): AxiosInstance => {
 
   return api;
 };
+
+// const api = createAPI();
+// export const fetchOfferData = async (id: string) => {
+
+//   const firstResponse = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+//   const [secondResponse, thirdResponse] = await Promise.all(
+//     [api.get<Review[]>(`${APIRoute.Reviews}/${id}`),
+//       api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`),
+//     ]);
+//   return { firstResponse, secondResponse, thirdResponse };
+
+// };
+

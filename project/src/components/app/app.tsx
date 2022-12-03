@@ -1,30 +1,19 @@
-import MainPages from '../../pages/main-pages/main-pages';
+import MainPages from '../../pages/main-page/main-page';
 import Login from '../../pages/login/login';
 import FavoritesScreen from '../../pages/favorites/favorites';
-import Property from '../../pages/property/property';
+import Property from '../../pages/room/room';
 import NotFoundScreen from '../../pages/not-found/not-found';
 import {HelmetProvider} from 'react-helmet-async';
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const/const';
+import {AppRoute} from '../../const/const';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-function LoadingScreen(): JSX.Element {
-  return (
-    <p>Loading ...</p>
-  );
-}
-
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
-    return (
-      <LoadingScreen />
-    );
-  }
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>

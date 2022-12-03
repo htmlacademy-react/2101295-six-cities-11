@@ -1,12 +1,13 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
-import {City} from '../../types/offers/offers';
+import {City, Offer} from '../../types/offers/offers';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const/const';
 import 'leaflet/dist/leaflet.css';
-import { useAppSelector } from '../../hooks';
+//import { useAppSelector } from '../../hooks';
 
 type MapProps = {
+  offers: Offer[] | undefined;
   className: string;
   city: City;
   selectedPoint: number| null;
@@ -25,12 +26,10 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {selectedPoint, className, city} = props;
-  const offers = useAppSelector((state) => state.offers);
-  //const city = useAppSelector((state) => state.city);
+  const {selectedPoint, className, city, offers} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const mapEl = offers.filter((el) => el.city.name === city.name);
+  const mapEl = offers?.filter((el) => el.city.name === city.name);
 
   useEffect(() => {
     const markers: Marker[] = [];
@@ -39,7 +38,7 @@ function Map(props: MapProps): JSX.Element {
         lat: city.location.latitude,
         lng: city.location.longitude
       }, city.location.zoom);
-      mapEl.forEach((offer) => {
+      mapEl?.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
