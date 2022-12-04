@@ -62,10 +62,10 @@ export const CITIES = [
 ] as const;
 
 export const SORT_TYPES = [
-  { title: 'Popular', type: 1 },
-  { title: 'Price: low to high', type: 2 },
-  { title: 'Price: high to low', type: 3 },
-  { title: 'Top rated first', type: 4 }
+  {type: 'Popular' },
+  {type: 'Price: low to high' },
+  {type: 'Price: high to low' },
+  {type: 'Top rated first' }
 ] as const;
 
 export const URL_MARKER_DEFAULT =

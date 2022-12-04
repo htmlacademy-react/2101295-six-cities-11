@@ -8,7 +8,7 @@ import { AuthorizationStatus, CITIES } from '../const/const';
 const initialState: {
   city: City;
   offers: Offer[];
-  typeSort: number;
+  typeSort: string;
   error: null | string;
   isOffersDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
@@ -16,7 +16,7 @@ const initialState: {
 } = {
   city: CITIES[0],
   offers: [],
-  typeSort: 1,
+  typeSort: 'Popular',
   error: null,
   isOffersDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,

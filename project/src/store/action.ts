@@ -11,7 +11,7 @@ export const changeSelectedCityAction = createAction('city/changeCity', (city: C
 }));
 export const loadOffers = createAction<Offer[]>('offers/loadOffers');
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
-export const changeSortType = createAction<number>('offers/typeSort');
+export const changeSortType = createAction<string>('offers/typeSort');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
 export const loadCurrentOffer = createAction<Offer>('offer/loadOffer');

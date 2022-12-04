@@ -11,11 +11,11 @@ import { fetchOfferAction } from '../../store/api-action';
 import LoadingScreen from '../../components/loader/loader';
 
 
-const getSortedOffers = function (offers: Offer[], type: number) {
+const getSortedOffers = function (offers: Offer[], type: string) {
   switch (type) {
-    case 2: return offers.sort((a, b) => a.price - b.price);
-    case 3: return offers.sort((a, b) => b.price - a.price);
-    case 4: return offers.sort((a, b) => a.rating - b.rating);
+    case 'Price: low to high': return offers.sort((a, b) => a.price - b.price);
+    case 'Price: high to low': return offers.sort((a, b) => b.price - a.price);
+    case 'Top rated first': return offers.sort((a, b) => a.rating - b.rating);
     default: return offers;
   }
 };
