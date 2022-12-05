@@ -2,65 +2,36 @@ import { Helmet } from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
-import { Offer } from '../../types/offers/offers';
 import OffersList from '../../components/offer-list/offer-list';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { APIRoute, AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const';
-import { useAppSelector } from '../../hooks';
-import { useEffect, useState } from 'react';
-import { Review } from '../../types/reviews/reviews';
-import { api } from '../../store';
+import { Link, useParams } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 import Gallery from '../../components/property-details/property-gallery';
 import ListPropertys from '../../components/property-details/room-property';
+import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchReviewListAction } from '../../store/api-action';
+import NotFoundScreen from '../not-found/not-found';
 
 
-function Property(): JSX.Element {
-  const navigate = useNavigate();
+export default function Property(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const city = useAppSelector((state) => state.city);
   const { id } = useParams();
-
-  const [offer, setOffer] = useState<Offer | null>(null);
-  const [nearbyOffers, setNearbyOffers] = useState<Offer[]>([]);
-  const [comments, setComments] = useState<Review[]>([]);
-
-  let offersForMap;
-  const getOffer = async () => {
-    try {
-      const { data } = await api.get<Offer>(`${APIRoute.Offers}/${id as string}`);
-      setOffer(data);
-    } catch (error) {
-      navigate(AppRoute.NotFound);
-    }
-  };
-
-  const getNearbyOffers = async () => {
-    try {
-      const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id as string}/nearby`);
-      setNearbyOffers(data);
-    } catch (error) {
-      navigate(AppRoute.NotFound);
-    }
-  };
-
-  const getComments = async () => {
-    try {
-      const { data } = await api.get<Review[]>(`${APIRoute.Reviews}/${id as string}`);
-      setComments(data);
-    } catch (error) {
-      navigate(AppRoute.NotFound);
-    }
-  };
+  const offer = useAppSelector((state) => state.currentOffer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const reviews = useAppSelector((state) => state.reviews);
 
   useEffect(() => {
-    getOffer();
-    getNearbyOffers();
-    getComments();
-  }, [id]);
+    if (id) {
+      dispatch(fetchCurrentOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchReviewListAction(id));
+    }
+  }, [id, dispatch]);
 
-
-  if (offer !== null) {
-    offersForMap = [...nearbyOffers.concat(offer)];
+  if(!offer) {
+    return <NotFoundScreen/>;
   }
   return (
     <main className="page__main page__main--property">
@@ -125,14 +96,14 @@ function Property(): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>
-              <ReviewsList reviews={comments} />
+              <h2 className="reviews__title">Reviews · <span className="reviews__amount"></span></h2>
+              <ReviewsList reviews={reviews}/>
               {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm /> : <Link to={AppRoute.Login}>Форма для отправки комментариев доступна только авторизованным пользователям!</Link> }
             </section>
           </div>
         </div>
         <section className="property__map map" >
-          <Map offers={offersForMap} className={'property__map'} city={city} selectedPoint={Number(id)} />
+          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={city} selectedPoint={Number(id)} />
         </section>
       </section>
       <div className="container">
@@ -144,5 +115,3 @@ function Property(): JSX.Element {
     </main>
   );
 }
-
-export default Property;

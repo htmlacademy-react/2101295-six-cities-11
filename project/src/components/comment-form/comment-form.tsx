@@ -1,65 +1,44 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { APIRoute } from '../../const/const';
-//import { useAppDispatch, useAppSelector } from '../../hooks';
-import { api } from '../../store';
-import { ReviewDate } from '../../types/reviews/reviews';
-// import { sendNewReviewAction } from '../../store/api-action';
-// import { ReviewDate } from '../../types/reviews/reviews';
+import React, { FormEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { sendNewReviewAction } from '../../store/api-action';
+import { ReviewData } from '../../types/reviews/reviews';
 
 
 export default function CommentForm(): JSX.Element {
+  const dispatch = useAppDispatch();
 
-  //const dispatch = useAppDispatch();
-
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    comment: string;
+    rating: string;
+  }>({
     comment: '',
     rating: '',
   });
 
-  const fieldChangeHandle = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {name, value} = event.target;
+  const fieldChangeHandle = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
 
-  const {pathname} = useLocation();
-  useEffect(() => {
-    setFormData({
-      comment: '',
-      rating: '',
-    });
-  }, [pathname]);
-
-
-  // const onSubmit = (reviewData: ReviewDate) => {
-  //   dispatch(sendNewReviewAction(reviewData));
-  // };
-  // //const currentOffer = useAppSelector((state) => state.currentOffer);
-  const { id } = useParams();
-  const handleFormSubmmit = (evt: FormEvent<HTMLButtonElement>) => {
-    evt.preventDefault();
-    api.post<ReviewDate[]>(`${APIRoute.Reviews}/${id as string}`, {
-      comment: formData.comment,
-      rating: formData.rating,
-    });
-    setFormData({
-      comment: '',
-      rating: '',
-    });
+  const onSubmit = (reviewData: ReviewData) => {
+    dispatch(sendNewReviewAction(reviewData));
   };
 
-  // const reviewFormSubmitHandle = (evt: FormEvent<HTMLFormElement>) => {
-  //   evt.preventDefault();
+  const currentOffer = useAppSelector((state) => state.currentOffer);
 
-  //   if(currentOffer) {
-  //     onSubmit({
-  //       id: currentOffer.id,
-  //       comment: formData.comment,
-  //       rating: formData.rating,
-  //     });
-  //   }
-  //   setFormData({...formData, comment: '', rating: ''});
-  // };
+  const handleFormSubmmit = (evt: FormEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+
+    if(currentOffer) {
+      onSubmit({
+        id: currentOffer.id,
+        comment: formData.comment,
+        rating: formData.rating,
+      });
+    }
+    setFormData({...formData, comment: '', rating: ''});
+  };
+
 
   return(
     <form className="reviews__form form" action="#" method="post">

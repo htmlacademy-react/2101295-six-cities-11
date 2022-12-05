@@ -15,4 +15,7 @@ export const changeSortType = createAction<string>('offers/typeSort');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
 export const loadCurrentOffer = createAction<Offer>('offer/loadOffer');
+export const loadReviews = createAction<Review[]>('data/sendNewReview');
+export const loadNearbyOffers = createAction<Offer[]>('data/loadNearbyOffers');
 export const sendNewReview = createAction<Review[]>('data/sendNewReview');
+

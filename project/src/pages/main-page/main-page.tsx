@@ -24,13 +24,13 @@ const getSortedOffers = function (offers: Offer[], type: string) {
 function MainPages(): JSX.Element {
 
   const city = useAppSelector((state) => state.city);
-  const sortType = useAppSelector((state) => state.typeSort);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOfferAction());
   },[dispatch]);
 
+  const sortType = useAppSelector((state) => state.typeSort);
   const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.name === city.name);
   const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
 
