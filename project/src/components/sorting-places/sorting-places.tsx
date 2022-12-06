@@ -8,7 +8,6 @@ export default function SortForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const [isSortListOpen, setSortListStatus] = useState(false);
   const typeSort = useAppSelector(getSortType);
-
   const handleToggleMouseEnter = () => setSortListStatus(!isSortListOpen);
 
 

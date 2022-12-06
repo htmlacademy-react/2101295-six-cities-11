@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import SortForm from '../../components/sorting-places/sorting-places';
@@ -37,10 +37,10 @@ function MainPages(): JSX.Element {
   const offersBeforeSort = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
   const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
 
-  const [currentOffer, setActiveOffer] = useState<number | null>(null);
-  const handleOfferMouseEnter = (offerId: number | null) => {
-    setActiveOffer(offerId);
-  };
+  // const [currentOffer, setActiveOffer] = useState<number | null>(null);
+  // const handleOfferMouseEnter = (offerId: number | null) => {
+  //   setActiveOffer(offerId);
+  // };
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadedData);
@@ -72,7 +72,6 @@ function MainPages(): JSX.Element {
                   offers={offersAfterSort}
                   wrapperClassName={'cities__places-list places__list tabs__content'}
                   classList={OfferOnMain}
-                  onOfferMouseEnter={handleOfferMouseEnter}
                 />
               </div>
             </section>
@@ -81,7 +80,6 @@ function MainPages(): JSX.Element {
                 offers={offersBeforeSort}
                 className={'cities__map'}
                 city={city}
-                selectedPoint={currentOffer}
               />
             </div>
           </div>

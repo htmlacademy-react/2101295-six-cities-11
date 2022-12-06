@@ -18,7 +18,10 @@ export const actionProcess = createSlice({
     changeSortType: (state, action: PayloadAction<string>) => {
       state.sortType = action.payload;
     },
+    poinOutOffer: (state, action: PayloadAction<number>) => {
+      state.selectedOfferId = action.payload;
+    },
   },
 });
 
-export const {changeCity, changeSortType} = actionProcess.actions;
+export const {changeCity, changeSortType, poinOutOffer} = actionProcess.actions;

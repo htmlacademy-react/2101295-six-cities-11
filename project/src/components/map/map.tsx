@@ -4,13 +4,14 @@ import useMap from '../../hooks/useMap';
 import {City, Offer} from '../../types/offers/offers';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const/const';
 import 'leaflet/dist/leaflet.css';
+import { useAppSelector } from '../../hooks';
+import { getSelectedOfferId } from '../../store/action-process/selector';
 //import { useAppSelector } from '../../hooks';
 
 type MapProps = {
   offers: Offer[];
   className: string;
   city: City;
-  selectedPoint: number| null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -26,7 +27,8 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {selectedPoint, className, city, offers} = props;
+  const {className, city, offers} = props;
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -45,7 +47,7 @@ function Map(props: MapProps): JSX.Element {
         markers.push(marker);
         marker
           .setIcon(
-            selectedPoint !== undefined && offer.id === selectedPoint
+            selectedOfferId !== undefined && offer.id === selectedOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -57,7 +59,7 @@ function Map(props: MapProps): JSX.Element {
         }
       };
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, offers, selectedOfferId]);
 
   return (
     <section

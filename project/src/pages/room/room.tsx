@@ -14,6 +14,7 @@ import NotFoundScreen from '../not-found/not-found';
 import LoadingScreen from '../../components/loader/loader';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCurrentOffer, getNearbyOffers, getOffersLoadedData, getReviews } from '../../store/data-process/selector';
+import { poinOutOffer } from '../../store/action-process/action-process';
 
 
 export default function Property(): JSX.Element {
@@ -30,6 +31,7 @@ export default function Property(): JSX.Element {
       dispatch(fetchCurrentOfferAction(id));
       dispatch(fetchNearbyOffersAction(id));
       dispatch(fetchReviewListAction(id));
+      dispatch(poinOutOffer(Number(id)));
     }
   }, [id, dispatch]);
 
@@ -111,7 +113,7 @@ export default function Property(): JSX.Element {
           </div>
         </div>
         <section className="property__map map" >
-          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={offer.city} selectedPoint={Number(id)} />
+          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={offer.city} />
         </section>
       </section>
       <div className="container">

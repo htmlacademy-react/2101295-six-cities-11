@@ -22,4 +22,5 @@ export type DataProcess = {
 export type ActionProcess = {
   city: City;
   sortType: string;
+  selectedOfferId?: number | undefined;
 };

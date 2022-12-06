@@ -12,7 +12,7 @@ type OffersListProps = {
 export default function OffersList({offers, onOfferMouseEnter, classList, wrapperClassName}: OffersListProps) {
   return(
     <div className={wrapperClassName}>
-      {offers?.map((offer) => <OneCard offer={offer} differences={classList} onOfferMouseEnter={onOfferMouseEnter} key={offer.id}/>)}
+      {offers?.map((offer) => <OneCard offer={offer} differences={classList} key={offer.id}/>)}
     </div>
   );
 }
