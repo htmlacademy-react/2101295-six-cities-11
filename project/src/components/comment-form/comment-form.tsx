@@ -29,7 +29,6 @@ export default function CommentForm(): JSX.Element {
 
   const handleFormSubmmit = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-
     if(currentOffer) {
       onSubmit({
         id: currentOffer.id,

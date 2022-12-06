@@ -3,8 +3,8 @@ import CommentForm from '../../components/comment-form/comment-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
-import { Link, useParams } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const';
+import { useParams } from 'react-router-dom';
+import { AuthorizationStatus, OfferOnPropety } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import Gallery from '../../components/property-details/property-gallery';
@@ -108,7 +108,7 @@ export default function Property(): JSX.Element {
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews · <span className="reviews__amount"></span></h2>
               <ReviewsList reviews={reviews}/>
-              {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm /> : <Link to={AppRoute.Login}>Форма для отправки комментариев доступна только авторизованным пользователям!</Link> }
+              {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm /> : <span>Форма для отправки комментариев доступна только авторизованным пользователям! </span>}
             </section>
           </div>
         </div>

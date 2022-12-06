@@ -44,12 +44,8 @@ export const dataProcess = createSlice({
         state.reviews = action.payload;
         state.isOffersDataLoading = false;
       })
-      .addCase(sendNewReviewAction.pending, (state) => {
-        state.isOffersDataLoading = true;
-      })
       .addCase(sendNewReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        state.isOffersDataLoading = false;
       });
   }
 });

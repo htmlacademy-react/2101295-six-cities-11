@@ -6,7 +6,6 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const/const';
 import 'leaflet/dist/leaflet.css';
 import { useAppSelector } from '../../hooks';
 import { getSelectedOfferId } from '../../store/action-process/selector';
-//import { useAppSelector } from '../../hooks';
 
 type MapProps = {
   offers: Offer[];
@@ -59,7 +58,7 @@ function Map(props: MapProps): JSX.Element {
         }
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, map, offers, selectedOfferId]);
 
   return (
     <section
