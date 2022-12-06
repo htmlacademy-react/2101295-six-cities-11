@@ -7,7 +7,7 @@ import 'leaflet/dist/leaflet.css';
 //import { useAppSelector } from '../../hooks';
 
 type MapProps = {
-  offers: Offer[] | undefined;
+  offers: Offer[];
   className: string;
   city: City;
   selectedPoint: number| null;
@@ -29,7 +29,6 @@ function Map(props: MapProps): JSX.Element {
   const {selectedPoint, className, city, offers} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const mapEl = offers?.filter((el) => el.city.name === city.name);
 
   useEffect(() => {
     const markers: Marker[] = [];
@@ -38,7 +37,7 @@ function Map(props: MapProps): JSX.Element {
         lat: city.location.latitude,
         lng: city.location.longitude
       }, city.location.zoom);
-      mapEl?.forEach((offer) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -58,7 +57,7 @@ function Map(props: MapProps): JSX.Element {
         }
       };
     }
-  }, [map, mapEl, offers, selectedPoint]);
+  }, [map, offers, selectedPoint]);
 
   return (
     <section

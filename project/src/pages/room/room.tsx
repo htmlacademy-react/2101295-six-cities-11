@@ -11,16 +11,19 @@ import Gallery from '../../components/property-details/property-gallery';
 import ListPropertys from '../../components/property-details/room-property';
 import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchReviewListAction } from '../../store/api-action';
 import NotFoundScreen from '../not-found/not-found';
+import LoadingScreen from '../../components/loader/loader';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getCurrentOffer, getNearbyOffers, getOffersLoadedData, getReviews } from '../../store/data-process/selector';
 
 
 export default function Property(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const city = useAppSelector((state) => state.city);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const { id } = useParams();
-  const offer = useAppSelector((state) => state.currentOffer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const reviews = useAppSelector((state) => state.reviews);
+  const offer = useAppSelector(getCurrentOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getReviews);
+  const isOffersDataLoading = useAppSelector(getOffersLoadedData);
 
   useEffect(() => {
     if (id) {
@@ -30,9 +33,14 @@ export default function Property(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  if(!offer) {
-    return <NotFoundScreen/>;
+  if (isOffersDataLoading || offer?.id !== Number(id)) {
+    return <LoadingScreen />;
   }
+
+  if(!offer) {
+    return <NotFoundScreen />;
+  }
+
   return (
     <main className="page__main page__main--property">
       <Helmet>
@@ -103,7 +111,7 @@ export default function Property(): JSX.Element {
           </div>
         </div>
         <section className="property__map map" >
-          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={city} selectedPoint={Number(id)} />
+          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={offer.city} selectedPoint={Number(id)} />
         </section>
       </section>
       <div className="container">

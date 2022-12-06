@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendNewReviewAction } from '../../store/api-action';
+import { getCurrentOffer } from '../../store/data-process/selector';
 import { ReviewData } from '../../types/reviews/reviews';
 
 
@@ -24,7 +25,7 @@ export default function CommentForm(): JSX.Element {
     dispatch(sendNewReviewAction(reviewData));
   };
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const currentOffer = useAppSelector(getCurrentOffer);
 
   const handleFormSubmmit = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();

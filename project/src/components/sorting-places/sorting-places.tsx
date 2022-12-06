@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { SORT_TYPES } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { changeSortType } from '../../store/action';
+import { changeSortType } from '../../store/action-process/action-process';
+import { getSortType } from '../../store/action-process/selector';
 
 export default function SortForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const [isSortListOpen, setSortListStatus] = useState(false);
-  const typeSort = useAppSelector((state) => state.typeSort);
+  const typeSort = useAppSelector(getSortType);
 
   const handleToggleMouseEnter = () => setSortListStatus(!isSortListOpen);
 

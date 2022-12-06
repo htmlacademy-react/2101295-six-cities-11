@@ -7,8 +7,11 @@ import CitiesList from '../../components/city-list/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { Offer } from '../../types/offers/offers';
 import Header from '../../components/header/header';
-import { fetchOfferAction } from '../../store/api-action';
+import { fetchOffersAction } from '../../store/api-action';
+import { getCity, getSortType } from '../../store/action-process/selector';
 import LoadingScreen from '../../components/loader/loader';
+import { getOffers, getOffersLoadedData } from '../../store/data-process/selector';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 const getSortedOffers = function (offers: Offer[], type: string) {
@@ -23,15 +26,15 @@ const getSortedOffers = function (offers: Offer[], type: string) {
 
 function MainPages(): JSX.Element {
 
-  const city = useAppSelector((state) => state.city);
+  const city = useAppSelector(getCity);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchOfferAction());
+    dispatch(fetchOffersAction());
   },[dispatch]);
 
-  const sortType = useAppSelector((state) => state.typeSort);
-  const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.name === city.name);
+  const sortType = useAppSelector(getSortType);
+  const offersBeforeSort = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
   const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
 
   const [currentOffer, setActiveOffer] = useState<number | null>(null);
@@ -39,8 +42,8 @@ function MainPages(): JSX.Element {
     setActiveOffer(offerId);
   };
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersDataLoading = useAppSelector(getOffersLoadedData);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (

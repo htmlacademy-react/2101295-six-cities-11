@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {AppRoute} from '../../const/const';
 import { logoutAction } from '../../store/api-action';
 import Logo from '../logo/logo';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <header className="header">
       <div className="container">
