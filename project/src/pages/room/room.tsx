@@ -119,7 +119,7 @@ export default function Property(): JSX.Element {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <OffersList wrapperClassName={'near-places__list places__list'} classList={OfferOnPropety} offers={nearbyOffers} />
+          <OffersList wrapperClassName={'near-places__list places__list'} classList={OfferOnPropety} offers={nearbyOffers}/>
         </section>
       </div>
     </main>

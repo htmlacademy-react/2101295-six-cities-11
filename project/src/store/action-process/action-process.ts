@@ -18,7 +18,7 @@ export const actionProcess = createSlice({
     changeSortType: (state, action: PayloadAction<string>) => {
       state.sortType = action.payload;
     },
-    poinOutOffer: (state, action: PayloadAction<number>) => {
+    poinOutOffer: (state, action: PayloadAction<number | undefined>) => {
       state.selectedOfferId = action.payload;
     },
   },

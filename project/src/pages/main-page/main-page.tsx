@@ -5,42 +5,25 @@ import SortForm from '../../components/sorting-places/sorting-places';
 import { AuthorizationStatus, OfferOnMain } from '../../const/const';
 import CitiesList from '../../components/city-list/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { Offer } from '../../types/offers/offers';
+//import { Offer } from '../../types/offers/offers';
 import Header from '../../components/header/header';
 import { fetchOffersAction } from '../../store/api-action';
-import { getCity, getSortType } from '../../store/action-process/selector';
+import { getCity } from '../../store/action-process/selector';
 import LoadingScreen from '../../components/loader/loader';
 import { getOffers, getOffersLoadedData } from '../../store/data-process/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
-const getSortedOffers = function (offers: Offer[], type: string) {
-  switch (type) {
-    case 'Price: low to high': return offers.sort((a, b) => a.price - b.price);
-    case 'Price: high to low': return offers.sort((a, b) => b.price - a.price);
-    case 'Top rated first': return offers.sort((a, b) => a.rating - b.rating);
-    default: return offers;
-  }
-};
-
-
 function MainPages(): JSX.Element {
 
   const city = useAppSelector(getCity);
+  const offers = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchOffersAction());
   },[dispatch]);
 
-  const sortType = useAppSelector(getSortType);
-  const offersBeforeSort = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
-  const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
-
-  // const [currentOffer, setActiveOffer] = useState<number | null>(null);
-  // const handleOfferMouseEnter = (offerId: number | null) => {
-  //   setActiveOffer(offerId);
-  // };
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadedData);
@@ -65,11 +48,11 @@ function MainPages(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersAfterSort.length} places to stay in {city.name}</b>
+              <b className="places__found">places to stay in {city.name}</b>
               <SortForm />
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
-                  offers={offersAfterSort}
+                  offers={offers}
                   wrapperClassName={'cities__places-list places__list tabs__content'}
                   classList={OfferOnMain}
                 />
@@ -77,7 +60,7 @@ function MainPages(): JSX.Element {
             </section>
             <div className="cities__right-section">
               <Map
-                offers={offersBeforeSort}
+                offers={offers}
                 className={'cities__map'}
                 city={city}
               />

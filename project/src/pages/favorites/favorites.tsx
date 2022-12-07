@@ -61,7 +61,7 @@ function FavoritesScreen(): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={favoritesOffer} />
+                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={favoritesOffer}/>
               </li>
             </ul>
           </section>

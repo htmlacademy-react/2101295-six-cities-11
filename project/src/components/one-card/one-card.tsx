@@ -13,7 +13,7 @@ type CardProps = {
 export default function OneCard({ offer, differences}: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
   return (
-    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => dispatch(poinOutOffer(offer.id))}>
+    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => dispatch(poinOutOffer(offer.id))} onMouseLeave={() => dispatch(poinOutOffer(undefined))}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
       <div className={`place-card__image-wrapper ${differences.class.forWrap}`}>
         <Link to={`/offer/${offer.id}`}>
