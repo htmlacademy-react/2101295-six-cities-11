@@ -11,6 +11,7 @@ type MapProps = {
   offers: Offer[];
   className: string;
   city: City;
+  unchangeableOfferId?: number;
 };
 
 const defaultCustomIcon = new Icon({
@@ -26,10 +27,11 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {className, city, offers} = props;
+  const {unchangeableOfferId, className, city, offers} = props;
   const selectedOfferId = useAppSelector(getSelectedOfferId);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const markedOfferId = unchangeableOfferId ?? selectedOfferId;
 
   useEffect(() => {
     const markers: Marker[] = [];
@@ -46,7 +48,7 @@ function Map(props: MapProps): JSX.Element {
         markers.push(marker);
         marker
           .setIcon(
-            selectedOfferId !== undefined && offer.id === selectedOfferId
+            markedOfferId !== undefined && offer.id === markedOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -58,7 +60,7 @@ function Map(props: MapProps): JSX.Element {
         }
       };
     }
-  }, [city.location.latitude, city.location.longitude, city.location.zoom, map, offers, selectedOfferId]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, map, markedOfferId, offers, selectedOfferId]);
 
   return (
     <section

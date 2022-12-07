@@ -113,7 +113,7 @@ export default function Property(): JSX.Element {
           </div>
         </div>
         <section className="property__map map" >
-          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={offer.city} />
+          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={offer.city} unchangeableOfferId={Number(id)}/>
         </section>
       </section>
       <div className="container">
