@@ -1,46 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import SortForm from '../../components/sorting-places/sorting-places';
 import { AuthorizationStatus, OfferOnMain } from '../../const/const';
 import CitiesList from '../../components/city-list/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { Offer } from '../../types/offers/offers';
+//import { Offer } from '../../types/offers/offers';
 import Header from '../../components/header/header';
-import { fetchOfferAction } from '../../store/api-action';
+import { fetchOffersAction } from '../../store/api-action';
+import { getCity } from '../../store/action-process/selector';
 import LoadingScreen from '../../components/loader/loader';
-
-
-const getSortedOffers = function (offers: Offer[], type: number) {
-  switch (type) {
-    case 2: return offers.sort((a, b) => a.price - b.price);
-    case 3: return offers.sort((a, b) => b.price - a.price);
-    case 4: return offers.sort((a, b) => a.rating - b.rating);
-    default: return offers;
-  }
-};
+import { getOffers, getOffersLoadedData } from '../../store/data-process/selector';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 function MainPages(): JSX.Element {
 
-  const city = useAppSelector((state) => state.city);
-  const sortType = useAppSelector((state) => state.typeSort);
+  const city = useAppSelector(getCity);
+  const offers = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchOfferAction());
+    dispatch(fetchOffersAction());
   },[dispatch]);
 
-  const offersBeforeSort = (useAppSelector((state) => state.offers)).filter((offer) => offer.city.name === city.name);
-  const offersAfterSort = getSortedOffers(offersBeforeSort, sortType);
 
-  const [currentOffer, setActiveOffer] = useState<number | null>(null);
-  const handleOfferMouseEnter = (offerId: number | null) => {
-    setActiveOffer(offerId);
-  };
-
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersDataLoading = useAppSelector(getOffersLoadedData);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
@@ -62,23 +48,21 @@ function MainPages(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersAfterSort.length} places to stay in {city.name}</b>
+              <b className="places__found">places to stay in {city.name}</b>
               <SortForm />
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
-                  offers={offersAfterSort}
+                  offers={offers}
                   wrapperClassName={'cities__places-list places__list tabs__content'}
                   classList={OfferOnMain}
-                  onOfferMouseEnter={handleOfferMouseEnter}
                 />
               </div>
             </section>
             <div className="cities__right-section">
               <Map
-                offers={offersBeforeSort}
+                offers={offers}
                 className={'cities__map'}
                 city={city}
-                selectedPoint={currentOffer}
               />
             </div>
           </div>

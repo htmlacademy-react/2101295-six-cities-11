@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import {CITIES} from '../../const/const';
 import {useAppSelector, useAppDispatch} from '../../hooks';
-import {changeSelectedCityAction} from '../../store/action';
+import {changeCity} from '../../store/action-process/action-process';
+import { getCity } from '../../store/action-process/selector';
 
 
 export default function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -19,7 +20,7 @@ export default function CitiesList(): JSX.Element {
               className={`${city.name === selectedCity.name ? 'tabs__item--active' : ''} locations__item-link tabs__item `}
               to="#"
               onClick={() => {
-                dispatch(changeSelectedCityAction(city));
+                dispatch(changeCity(city));
               }}
             >
               <span>{city.name}</span>

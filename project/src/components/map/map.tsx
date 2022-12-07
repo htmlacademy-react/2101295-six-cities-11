@@ -4,13 +4,14 @@ import useMap from '../../hooks/useMap';
 import {City, Offer} from '../../types/offers/offers';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const/const';
 import 'leaflet/dist/leaflet.css';
-//import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
+import { getSelectedOfferId } from '../../store/action-process/selector';
 
 type MapProps = {
-  offers: Offer[] | undefined;
+  offers: Offer[];
   className: string;
   city: City;
-  selectedPoint: number| null;
+  unchangeableOfferId?: number;
 };
 
 const defaultCustomIcon = new Icon({
@@ -26,10 +27,11 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {selectedPoint, className, city, offers} = props;
+  const {unchangeableOfferId, className, city, offers} = props;
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const mapEl = offers?.filter((el) => el.city.name === city.name);
+  const markedOfferId = unchangeableOfferId ?? selectedOfferId;
 
   useEffect(() => {
     const markers: Marker[] = [];
@@ -38,7 +40,7 @@ function Map(props: MapProps): JSX.Element {
         lat: city.location.latitude,
         lng: city.location.longitude
       }, city.location.zoom);
-      mapEl?.forEach((offer) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -46,7 +48,7 @@ function Map(props: MapProps): JSX.Element {
         markers.push(marker);
         marker
           .setIcon(
-            selectedPoint !== undefined && offer.id === selectedPoint
+            markedOfferId !== undefined && offer.id === markedOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -58,7 +60,7 @@ function Map(props: MapProps): JSX.Element {
         }
       };
     }
-  }, [map, mapEl, offers, selectedPoint]);
+  }, [city.location.latitude, city.location.longitude, city.location.zoom, map, markedOfferId, offers, selectedOfferId]);
 
   return (
     <section

@@ -2,66 +2,47 @@ import { Helmet } from 'react-helmet-async';
 import CommentForm from '../../components/comment-form/comment-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
-import { Offer } from '../../types/offers/offers';
 import OffersList from '../../components/offer-list/offer-list';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { APIRoute, AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const';
-import { useAppSelector } from '../../hooks';
-import { useEffect, useState } from 'react';
-import { Review } from '../../types/reviews/reviews';
-import { api } from '../../store';
+import { useParams } from 'react-router-dom';
+import { AuthorizationStatus, OfferOnPropety } from '../../const/const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 import Gallery from '../../components/property-details/property-gallery';
 import ListPropertys from '../../components/property-details/room-property';
+import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchReviewListAction } from '../../store/api-action';
+import NotFoundScreen from '../not-found/not-found';
+import LoadingScreen from '../../components/loader/loader';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getCurrentOffer, getNearbyOffers, getOffersLoadedData, getReviews } from '../../store/data-process/selector';
+import { poinOutOffer } from '../../store/action-process/action-process';
 
 
-function Property(): JSX.Element {
-  const navigate = useNavigate();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const city = useAppSelector((state) => state.city);
+export default function Property(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const { id } = useParams();
-
-  const [offer, setOffer] = useState<Offer | null>(null);
-  const [nearbyOffers, setNearbyOffers] = useState<Offer[]>([]);
-  const [comments, setComments] = useState<Review[]>([]);
-
-  let offersForMap;
-  const getOffer = async () => {
-    try {
-      const { data } = await api.get<Offer>(`${APIRoute.Offers}/${id as string}`);
-      setOffer(data);
-    } catch (error) {
-      navigate(AppRoute.NotFound);
-    }
-  };
-
-  const getNearbyOffers = async () => {
-    try {
-      const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id as string}/nearby`);
-      setNearbyOffers(data);
-    } catch (error) {
-      navigate(AppRoute.NotFound);
-    }
-  };
-
-  const getComments = async () => {
-    try {
-      const { data } = await api.get<Review[]>(`${APIRoute.Reviews}/${id as string}`);
-      setComments(data);
-    } catch (error) {
-      navigate(AppRoute.NotFound);
-    }
-  };
+  const offer = useAppSelector(getCurrentOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getReviews);
+  const isOffersDataLoading = useAppSelector(getOffersLoadedData);
 
   useEffect(() => {
-    getOffer();
-    getNearbyOffers();
-    getComments();
-  }, [id]);
+    if (id) {
+      dispatch(fetchCurrentOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchReviewListAction(id));
+      dispatch(poinOutOffer(Number(id)));
+    }
+  }, [id, dispatch]);
 
-
-  if (offer !== null) {
-    offersForMap = [...nearbyOffers.concat(offer)];
+  if (isOffersDataLoading || offer?.id !== Number(id)) {
+    return <LoadingScreen />;
   }
+
+  if(!offer) {
+    return <NotFoundScreen />;
+  }
+
   return (
     <main className="page__main page__main--property">
       <Helmet>
@@ -125,24 +106,22 @@ function Property(): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>
-              <ReviewsList reviews={comments} />
-              {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm /> : <Link to={AppRoute.Login}>Форма для отправки комментариев доступна только авторизованным пользователям!</Link> }
+              <h2 className="reviews__title">Reviews · <span className="reviews__amount"></span></h2>
+              <ReviewsList reviews={reviews}/>
+              {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm /> : <span>Форма для отправки комментариев доступна только авторизованным пользователям! </span>}
             </section>
           </div>
         </div>
         <section className="property__map map" >
-          <Map offers={offersForMap} className={'property__map'} city={city} selectedPoint={Number(id)} />
+          <Map offers={nearbyOffers.concat(offer)} className={'property__map'} city={offer.city} unchangeableOfferId={Number(id)}/>
         </section>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <OffersList wrapperClassName={'near-places__list places__list'} classList={OfferOnPropety} offers={nearbyOffers} />
+          <OffersList wrapperClassName={'near-places__list places__list'} classList={OfferOnPropety} offers={nearbyOffers}/>
         </section>
       </div>
     </main>
   );
 }
-
-export default Property;

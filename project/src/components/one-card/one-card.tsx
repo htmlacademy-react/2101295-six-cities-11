@@ -1,16 +1,19 @@
 import {Offer, offerCardConfig} from '../../types/offers/offers';
 import {Link} from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { poinOutOffer } from '../../store/action-process/action-process';
+
 
 type CardProps = {
   offer: Offer;
   differences: offerCardConfig;
-  onOfferMouseEnter?: (offerId: number | null) => void;
 }
 
 
-export default function OneCard({ offer, differences, onOfferMouseEnter }: CardProps): JSX.Element {
+export default function OneCard({ offer, differences}: CardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   return (
-    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => onOfferMouseEnter?.(offer.id)} onMouseLeave={() => onOfferMouseEnter?.(null)}>
+    <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => dispatch(poinOutOffer(offer.id))} onMouseLeave={() => dispatch(poinOutOffer(undefined))}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
       <div className={`place-card__image-wrapper ${differences.class.forWrap}`}>
         <Link to={`/offer/${offer.id}`}>

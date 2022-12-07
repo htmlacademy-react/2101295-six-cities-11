@@ -11,7 +11,8 @@ export type Review = {
   };
 }
 
-export type ReviewDate = {
-    comment: string;
-    rating: number;
+export type ReviewData = {
+  comment: string;
+  rating: string;
+  id: number;
 }

@@ -4,10 +4,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {AppRoute} from '../../const/const';
 import { logoutAction } from '../../store/api-action';
 import Logo from '../logo/logo';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { memo } from 'react';
 
-export default function Header(): JSX.Element {
+function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <header className="header">
       <div className="container">
@@ -29,7 +31,7 @@ export default function Header(): JSX.Element {
                     evt.preventDefault();
                     dispatch(logoutAction());
                   }}
-                  to={AppRoute.Main}
+                  to={AppRoute.Login}
                   >
                     <span className="header__signout">Sign out</span>
                   </Link>
@@ -48,3 +50,5 @@ export default function Header(): JSX.Element {
     </header>
   );
 }
+
+export default memo(Header);

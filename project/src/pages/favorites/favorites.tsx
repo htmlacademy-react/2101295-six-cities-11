@@ -2,9 +2,10 @@ import OffersList from '../../components/offer-list/offer-list';
 import { Helmet } from 'react-helmet-async';
 import {OfferOnFavorites} from '../../const/const';
 import {useAppSelector} from '../../hooks';
+import { getOffers } from '../../store/data-process/selector';
 
 function FavoritesScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
 
   const favoritesOffer = offers.filter((offer) => offer.isFavorite === true);
   return (
@@ -60,7 +61,7 @@ function FavoritesScreen(): JSX.Element {
                     </a>
                   </div>
                 </div>
-                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={favoritesOffer} />
+                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={favoritesOffer}/>
               </li>
             </ul>
           </section>
