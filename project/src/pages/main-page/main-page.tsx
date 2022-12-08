@@ -7,11 +7,9 @@ import { fetchOffersAction } from '../../store/api-action';
 import LoadingScreen from '../../components/loader/loader';
 import { getOffers, getOffersLoadedData } from '../../store/data-process/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-//import MainPageEmpty from '../../components/main-page-components/main-page-empty';
 import { getCity } from '../../store/action-process/selector';
 import MainPageEmpty from '../../components/main-page-component/main-page-empty';
 import MainPageContent from '../../components/main-page-component/main-page-content';
-//import MainPageContent from '../../components/main-page-components/main-page-content';
 
 
 function MainPages(): JSX.Element {

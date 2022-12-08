@@ -52,6 +52,8 @@ export const OfferOnPropety: offerCardConfig = {
   },
 };
 
+export const CITIESd = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 export const CITIES = [
   { name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
   { name: 'Cologne', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
@@ -79,6 +81,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Reviews = '/comments',
+  Favorite = '/favorite',
 }
 export enum NameSpace {
   User = 'User',

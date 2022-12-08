@@ -1,11 +1,19 @@
 import OffersList from '../../components/offer-list/offer-list';
 import { Helmet } from 'react-helmet-async';
 import {OfferOnFavorites} from '../../const/const';
-import {useAppSelector} from '../../hooks';
-import { getOffers } from '../../store/data-process/selector';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import { getFavoritesOffers } from '../../store/favorites-pprocess/selector';
+import { fetchFavoritesOffersAction } from '../../store/api-action';
+import { useEffect } from 'react';
 
 function FavoritesScreen(): JSX.Element {
-  const offers = useAppSelector(getOffers);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFavoritesOffersAction());
+  },[dispatch]);
+
+  const offers = useAppSelector(getFavoritesOffers);
 
   const favoritesOffer = offers.filter((offer) => offer.isFavorite === true);
   return (
