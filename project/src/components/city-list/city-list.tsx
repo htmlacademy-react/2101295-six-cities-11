@@ -18,7 +18,7 @@ export default function CitiesList(): JSX.Element {
           >
             <Link
               className={`${city.name === selectedCity.name ? 'tabs__item--active' : ''} locations__item-link tabs__item `}
-              to="#"
+              to="/"
               onClick={() => {
                 dispatch(changeCity(city));
               }}

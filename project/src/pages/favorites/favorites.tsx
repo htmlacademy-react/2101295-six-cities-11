@@ -1,11 +1,9 @@
-import OffersList from '../../components/offer-list/offer-list';
 import { Helmet } from 'react-helmet-async';
-import {OfferOnFavorites} from '../../const/const';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import { getFavoritesOffers } from '../../store/favorites-pprocess/selector';
+import {useAppDispatch} from '../../hooks';
 import { fetchFavoritesOffersAction } from '../../store/api-action';
 import { useEffect } from 'react';
 import Header from '../../components/header/header';
+import CityFavoritesList from '../../components/favorite-page-component/list-citys';
 
 function FavoritesScreen(): JSX.Element {
 
@@ -14,9 +12,6 @@ function FavoritesScreen(): JSX.Element {
     dispatch(fetchFavoritesOffersAction());
   },[dispatch]);
 
-  const offers = useAppSelector(getFavoritesOffers);
-
-  //const favoritesOffer = offers.filter((offer) => offer.isFavorite === true);
   return (
     <div className="page">
       <Helmet>
@@ -27,18 +22,7 @@ function FavoritesScreen(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <OffersList wrapperClassName={'favorites__places'} classList={OfferOnFavorites} offers={offers}/>
-              </li>
-            </ul>
+            <CityFavoritesList/>
           </section>
         </div>
       </main>
