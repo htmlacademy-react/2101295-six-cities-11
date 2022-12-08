@@ -1,7 +1,11 @@
 import {Offer, offerCardConfig} from '../../types/offers/offers';
-import {Link} from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import {Link, useNavigate} from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { poinOutOffer } from '../../store/action-process/action-process';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
+import { sendFavoriteOfferAction } from '../../store/api-action';
+import { useState } from 'react';
 
 
 type CardProps = {
@@ -11,7 +15,21 @@ type CardProps = {
 
 
 export default function OneCard({ offer, differences}: CardProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [isPremium, setIsPremium] = useState(offer.isFavorite);
+  const handleButtonClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(sendFavoriteOfferAction({
+        id: offer.id,
+        status: (isPremium) ? 0 : 1,
+      }));
+      setIsPremium(!isPremium);
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
   return (
     <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => dispatch(poinOutOffer(offer.id))} onMouseLeave={() => dispatch(poinOutOffer(undefined))}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
@@ -31,8 +49,9 @@ export default function OneCard({ offer, differences}: CardProps): JSX.Element {
             <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night         </span>
           </div>
-          <button className= {offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
+          <button className= {isPremium ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
+            onClick={handleButtonClick}
           >
             <svg
               className="place-card__bookmark-icon"
