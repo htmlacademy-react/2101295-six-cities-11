@@ -3,7 +3,7 @@ import { AuthorizationStatus } from '../../const/const';
 import CitiesList from '../../components/city-list/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
-import { fetchOffersAction } from '../../store/api-action';
+import { fetchFavoritesOffersAction, fetchOffersAction } from '../../store/api-action';
 import LoadingScreen from '../../components/loader/loader';
 import { getOffers, getOffersLoadedData } from '../../store/data-process/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -17,12 +17,15 @@ function MainPages(): JSX.Element {
   const city = useAppSelector(getCity);
   const offers = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchOffersAction());
-  },[dispatch]);
-
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadedData);
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoritesOffersAction());
+    }
+  },[dispatch, authorizationStatus]);
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
