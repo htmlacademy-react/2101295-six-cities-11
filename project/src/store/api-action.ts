@@ -8,7 +8,7 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { Review, ReviewData } from '../types/reviews/reviews';
-
+//import { addFavorites, removeFavorites } from './data-process/data-process';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -112,4 +112,42 @@ export const sendNewReviewAction = createAsyncThunk<Review[], ReviewData, {
     const { data } = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, { rating, comment });
     return data;
   },
+);
+
+export const fetchFavoritesOffersAction = createAsyncThunk<Offer[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'data/fetchfavoritesOffer',
+  async (_arg, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offer[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const addFavoriteOfferAction = createAsyncThunk<Offer, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'data/addStatusOffer',
+  async (id, { dispatch, extra: api,}) => {
+    const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/1`);
+    return data;
+  }
+);
+export const removeFavoriteOfferAction = createAsyncThunk<Offer, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'data/removeStatusOffer',
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/0`);
+    return data;
+  }
 );

@@ -1,7 +1,10 @@
-import {Offer, offerCardConfig} from '../../types/offers/offers';
-import {Link} from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { Offer, offerCardConfig } from '../../types/offers/offers';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { poinOutOffer } from '../../store/action-process/action-process';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
+import { addFavoriteOfferAction, removeFavoriteOfferAction } from '../../store/api-action';
 
 
 type CardProps = {
@@ -10,8 +13,23 @@ type CardProps = {
 }
 
 
-export default function OneCard({ offer, differences}: CardProps): JSX.Element {
+export default function OneCard({ offer, differences }: CardProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      if (offer.isFavorite) {
+        dispatch(removeFavoriteOfferAction(offer.id));
+      } else {
+        dispatch(addFavoriteOfferAction((offer.id)));
+      }
+
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
   return (
     <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => dispatch(poinOutOffer(offer.id))} onMouseLeave={() => dispatch(poinOutOffer(undefined))}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
@@ -31,8 +49,9 @@ export default function OneCard({ offer, differences}: CardProps): JSX.Element {
             <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night         </span>
           </div>
-          <button className= {offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
+          <button className={offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
+            onClick={handleButtonClick}
           >
             <svg
               className="place-card__bookmark-icon"
@@ -48,7 +67,7 @@ export default function OneCard({ offer, differences}: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${(Math.round(offer.rating)) * 20}%`}} />
+            <span style={{ width: `${(Math.round(offer.rating)) * 20}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

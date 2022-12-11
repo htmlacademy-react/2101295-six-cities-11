@@ -24,3 +24,8 @@ export type ActionProcess = {
   sortType: string;
   selectedOfferId?: number | undefined;
 };
+
+export type DataFavoriteProcess = {
+  favoritesOffers: Offer[];
+  isOffersFavoritesDataLoading: boolean;
+}

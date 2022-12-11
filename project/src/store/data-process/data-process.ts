@@ -1,7 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/const';
+import { Offer } from '../../types/offers/offers';
 import { DataProcess } from '../../types/state/state';
-import { fetchOffersAction, fetchCurrentOfferAction, fetchNearbyOffersAction, fetchReviewListAction, sendNewReviewAction } from '../api-action';
+import { fetchOffersAction, fetchCurrentOfferAction, fetchNearbyOffersAction, fetchReviewListAction, sendNewReviewAction, removeFavoriteOfferAction, addFavoriteOfferAction } from '../api-action';
+//import { favoritesDataProcess } from '../favorites-process/favorites-process';
+//import { removeFavorites } from '../favorites-pprocess/favorites-process';
 
 const initialState: DataProcess = {
   offers: [],
@@ -9,6 +12,17 @@ const initialState: DataProcess = {
   reviews: [],
   isOffersDataLoading: false,
 };
+
+const updateDataState = (state: DataProcess, action: PayloadAction<Offer>) => {
+  state.offers = state.offers.map((it) => it.id === action.payload.id ? action.payload : it);
+  if (state.currentOffer !== undefined && state.currentOffer.id === action.payload.id) {
+    state.currentOffer = action.payload;
+  }
+  if (state.nearbyOffers !== undefined) {
+    state.nearbyOffers = state.nearbyOffers.map((it) => it.id === action.payload.id ? action.payload : it);
+  }
+};
+
 
 export const dataProcess = createSlice({
   name: NameSpace.Data,
@@ -46,6 +60,13 @@ export const dataProcess = createSlice({
       })
       .addCase(sendNewReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
+      })
+      .addCase(removeFavoriteOfferAction.fulfilled, (state, action) => {
+        updateDataState(state, action);
+      })
+      .addCase(addFavoriteOfferAction.fulfilled, (state, action) => {
+        updateDataState(state, action);
       });
   }
 });
+
