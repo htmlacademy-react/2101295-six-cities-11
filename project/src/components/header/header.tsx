@@ -6,7 +6,8 @@ import { logoutAction } from '../../store/api-action';
 import Logo from '../logo/logo';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { memo } from 'react';
-import { getFavoritesOffers } from '../../store/favorites-pprocess/selector';
+import { getFavoritesOffers } from '../../store/favorites-process/selector';
+
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();

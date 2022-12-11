@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import FavoriteNotEmptyPage from '../../components/favorite-page-component/favorite-not-empty';
 import { useAppSelector } from '../../hooks';
-import { getFavoritesOffers } from '../../store/favorites-pprocess/selector';
 import FavoriteEmptyPage from '../../components/favorite-page-component/favorite-empty';
+import { getFavoritesOffers } from '../../store/favorites-process/selector';
 
 function FavoritesScreen(): JSX.Element {
   const favoritesOffers = useAppSelector(getFavoritesOffers);

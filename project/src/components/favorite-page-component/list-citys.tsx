@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { CITIES, OfferOnFavorites } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/action-process/action-process';
-import { getFavoritesOffers } from '../../store/favorites-pprocess/selector';
+import { getFavoritesOffers } from '../../store/favorites-process/selector';
 import OffersList from '../offer-list/offer-list';
 
 export default function CityFavoritesList(): JSX.Element {

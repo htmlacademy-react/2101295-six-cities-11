@@ -19,7 +19,6 @@ function MainPages(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersDataLoading = useAppSelector(getOffersLoadedData);
-
   useEffect(() => {
     dispatch(fetchOffersAction());
     if (authorizationStatus === AuthorizationStatus.Auth) {
