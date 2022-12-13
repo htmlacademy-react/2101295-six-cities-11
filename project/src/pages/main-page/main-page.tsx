@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import { fetchFavoritesOffersAction, fetchOffersAction } from '../../store/api-action';
 import LoadingScreen from '../../components/loader/loader';
-import { getOffers, getOffersLoadedData } from '../../store/data-process/selector';
+import { getOffers, getStatusLoadedData } from '../../store/data-process/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCity } from '../../store/action-process/selector';
 import MainPageEmpty from '../../components/main-page-component/main-page-empty';
@@ -18,7 +18,7 @@ function MainPages(): JSX.Element {
   const offers = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isOffersDataLoading = useAppSelector(getOffersLoadedData);
+  const isOffersDataLoading = useAppSelector(getStatusLoadedData);
   useEffect(() => {
     dispatch(fetchOffersAction());
     if (authorizationStatus === AuthorizationStatus.Auth) {

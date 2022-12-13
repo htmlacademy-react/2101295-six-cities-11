@@ -16,7 +16,7 @@ export type DataProcess = {
   currentOffer?: Offer;
   nearbyOffers: Offer[];
   reviews: Review[];
-  isOffersDataLoading: boolean;
+  isDataLoading: boolean;
 };
 
 export type ActionProcess = {
