@@ -8,7 +8,7 @@ type ReviewsListProps = {
 export default function ReviewsList ({reviews}: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
-      {reviews?.map((review) => <ReviewsItem review={review} key={review.id} />)}
+      {reviews?.slice().reverse().slice(0, 10).map((review) => <ReviewsItem review={review} key={review.id} />)}
     </ul>
   );
 }

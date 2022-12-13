@@ -8,12 +8,21 @@ export enum AppRoute {
   NotFound = '*',
 }
 
+export enum LengthComment {
+  Min = 50,
+  Max = 300
+}
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const MARKER = {
+  DEFAULT: '../../../img/pin.svg',
+  CURRENT: '../../../img/pin-active.svg',
+} as const;
 
 export const OfferOnFavorites: offerCardConfig = {
   class: {
@@ -25,7 +34,7 @@ export const OfferOnFavorites: offerCardConfig = {
     width: '150',
     hight: '110',
   },
-};
+} as const;
 
 export const OfferOnMain: offerCardConfig = {
   class: {
@@ -37,7 +46,7 @@ export const OfferOnMain: offerCardConfig = {
     width: '260',
     hight: '200',
   },
-};
+} as const;
 
 
 export const OfferOnPropety: offerCardConfig = {
@@ -50,9 +59,8 @@ export const OfferOnPropety: offerCardConfig = {
     width: '260',
     hight: '200',
   },
-};
+} as const;
 
-export const CITIESd = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const CITIES = [
   { name: 'Paris', location: {latitude: 48.85661, longitude: 2.351499, zoom: 10, }},
@@ -70,11 +78,6 @@ export const SORT_TYPES = [
   {type: 'Top rated first' }
 ] as const;
 
-export const URL_MARKER_DEFAULT =
-  '../../../img/pin.svg';
-
-export const URL_MARKER_CURRENT =
-  '../../../img/pin-active.svg';
 
 export enum APIRoute {
   Offers = '/hotels',

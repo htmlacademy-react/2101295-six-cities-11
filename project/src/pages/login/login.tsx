@@ -2,9 +2,10 @@ import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, Navigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import { AuthorizationStatus } from '../../const/const';
+import { AuthorizationStatus, CITIES } from '../../const/const';
 import { AppRoute } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity } from '../../store/action-process/action-process';
 import { loginAction } from '../../store/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthData } from '../../types/auth-data';
@@ -16,7 +17,7 @@ function Login(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  if (authorizationStatus === AuthorizationStatus.Auth){
+  if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Main} />;
   }
 
@@ -35,6 +36,13 @@ function Login(): JSX.Element {
       });
     }
   };
+  function getRandomCity(min: number, max: number) {
+    const randomIndex = Math.floor(Math.random() * (max - min)) + min;
+    const randomCity = CITIES[randomIndex];
+    return randomCity;
+  }
+
+  const cityOnWrap = getRandomCity(0, 5);
 
   return (
     <div className="page page--gray page--login">
@@ -91,8 +99,11 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
+              <Link className="locations__item-link" to="/" onClick={() => {
+                dispatch(changeCity(cityOnWrap));
+              }}
+              >
+                <span>{cityOnWrap.name}</span>
               </Link>
             </div>
           </section>

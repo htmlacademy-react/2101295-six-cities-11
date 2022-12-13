@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { poinOutOffer } from '../../store/action-process/action-process';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { AppRoute, AuthorizationStatus } from '../../const/const';
-import { addFavoriteOfferAction, removeFavoriteOfferAction } from '../../store/api-action';
+import { handleButtonFavoriteClick } from '../../utils/utils';
 
 
 type CardProps = {
@@ -18,18 +17,6 @@ export default function OneCard({ offer, differences }: CardProps): JSX.Element 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      if (offer.isFavorite) {
-        dispatch(removeFavoriteOfferAction(offer.id));
-      } else {
-        dispatch(addFavoriteOfferAction((offer.id)));
-      }
-
-    } else {
-      navigate(AppRoute.Login);
-    }
-  };
   return (
     <article className={`place-card ${differences.class.forArticle}`} id={offer.id.toString()} onMouseEnter={() => dispatch(poinOutOffer(offer.id))} onMouseLeave={() => dispatch(poinOutOffer(undefined))}>
       {offer.isPremium ? <div className="place-card__mark"> <span>Premium</span></div> : ''}
@@ -51,7 +38,7 @@ export default function OneCard({ offer, differences }: CardProps): JSX.Element 
           </div>
           <button className={offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
-            onClick={handleButtonClick}
+            onClick={() => handleButtonFavoriteClick(offer, authorizationStatus, dispatch, navigate)}
           >
             <svg
               className="place-card__bookmark-icon"

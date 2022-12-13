@@ -10,7 +10,7 @@ const initialState: DataProcess = {
   offers: [],
   nearbyOffers: [],
   reviews: [],
-  isOffersDataLoading: false,
+  isDataLoading: false,
 };
 
 const updateDataState = (state: DataProcess, action: PayloadAction<Offer>) => {
@@ -31,32 +31,32 @@ export const dataProcess = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchCurrentOfferAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isDataLoading = true;
       })
       .addCase(fetchCurrentOfferAction.fulfilled, (state, action) => {
         state.currentOffer = action.payload;
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchNearbyOffersAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isDataLoading = true;
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchReviewListAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isDataLoading = true;
       })
       .addCase(fetchReviewListAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(sendNewReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;

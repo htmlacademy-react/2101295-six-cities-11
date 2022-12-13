@@ -4,19 +4,19 @@ import SortForm from '../sorting-places/sorting-places';
 import Map from '../../components/map/map';
 import { City, Offer } from '../../types/offers/offers';
 
-type MainPageContent = {
+type MainPageContentProps = {
   offers: Offer[];
   city: City;
 }
 
-function MainPageContent({offers, city} : MainPageContent): JSX.Element {
+function MainPageContent({offers, city} : MainPageContentProps): JSX.Element {
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">places to stay in {city.name}</b>
+          <b className="places__found">{offers.length} places to stay in {city.name}</b>
           <SortForm />
           <div className="cities__places-list places__list tabs__content">
             <OffersList
