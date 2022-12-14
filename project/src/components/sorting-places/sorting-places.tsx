@@ -15,7 +15,7 @@ export default function SortForm(): JSX.Element {
     <form className="places__sorting" action="#" method="get" onMouseEnter={handleToggleMouseEnter} onMouseLeave={handleToggleMouseEnter}>
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
-        {typeSort}
+      &nbsp;{typeSort}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -29,7 +29,7 @@ export default function SortForm(): JSX.Element {
             onClick={() => dispatch(changeSortType(el.type))}
           >
             {el.type}
-          </li>))};
+          </li>))}
       </ul>
     </form >
   );

@@ -10,7 +10,7 @@ import { loginAction } from '../../store/api-action';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthData } from '../../types/auth-data';
 
-function Login(): JSX.Element {
+function LoginPage(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -29,7 +29,7 @@ function Login(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null && passwordRef.current.value.length > 1) {
+    if (loginRef.current && passwordRef.current && passwordRef.current.value.length > 1) {
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -113,4 +113,4 @@ function Login(): JSX.Element {
   );
 }
 
-export default Login;
+export default LoginPage;

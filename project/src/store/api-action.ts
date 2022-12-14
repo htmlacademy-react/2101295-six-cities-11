@@ -8,7 +8,6 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { Review, ReviewData } from '../types/reviews/reviews';
-//import { addFavorites, removeFavorites } from './data-process/data-process';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -17,7 +16,7 @@ export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
 }
 >(
   'data/fetchOffers',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Offer[]>(APIRoute.Offers);
     return data;
   },
@@ -30,7 +29,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.get(APIRoute.Login);
   },
 );
@@ -56,7 +55,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/logout',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
   },
@@ -69,7 +68,7 @@ export const fetchCurrentOfferAction = createAsyncThunk<Offer, string, {
 }
 >(
   'data/fetchCurrentOffer',
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     const { data } = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
     return data;
   },
@@ -82,7 +81,7 @@ export const fetchNearbyOffersAction = createAsyncThunk<Offer[], string, {
 }
 >(
   'data/fetchNearbyOffer',
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
     return data;
   },
@@ -95,7 +94,7 @@ export const fetchReviewListAction = createAsyncThunk<Review[], string, {
 }
 >(
   'data/fetchReviewList',
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     const { data } = await api.get<Review[]>(`${APIRoute.Reviews}/${id}`);
     return data;
   },
@@ -108,7 +107,7 @@ export const sendNewReviewAction = createAsyncThunk<Review[], ReviewData, {
 }
 >(
   'data/sendReview',
-  async ({ id, rating, comment }, { dispatch, extra: api }) => {
+  async ({ id, rating, comment }, { extra: api }) => {
     const { data } = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, { rating, comment });
     return data;
   },
@@ -121,7 +120,7 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offer[], undefined, {
 }
 >(
   'data/fetchfavoritesOffer',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Offer[]>(APIRoute.Favorite);
     return data;
   },
@@ -134,7 +133,7 @@ export const addFavoriteOfferAction = createAsyncThunk<Offer, number, {
 }
 >(
   'data/addStatusOffer',
-  async (id, { dispatch, extra: api,}) => {
+  async (id, { extra: api,}) => {
     const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/1`);
     return data;
   }
@@ -146,7 +145,7 @@ export const removeFavoriteOfferAction = createAsyncThunk<Offer, number, {
 }
 >(
   'data/removeStatusOffer',
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/0`);
     return data;
   }

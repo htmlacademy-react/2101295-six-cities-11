@@ -4,7 +4,7 @@ import { addFavoriteOfferAction, removeFavoriteOfferAction } from '../store/api-
 import { Offer } from '../types/offers/offers';
 import { AppDispatch } from '../types/state/state';
 
-export const handleButtonFavoriteClick = (offer: Offer, authorizationStatus: string, dispatch: AppDispatch, navigate: NavigateFunction): void => {
+export const handleButtonFavoriteClick = (offer: Offer, authorizationStatus: string, dispatch: AppDispatch, navigate: NavigateFunction) => {
   if (authorizationStatus === AuthorizationStatus.Auth) {
     if (offer.isFavorite) {
       dispatch(removeFavoriteOfferAction(offer.id));

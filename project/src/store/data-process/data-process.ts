@@ -3,8 +3,6 @@ import { NameSpace } from '../../const/const';
 import { Offer } from '../../types/offers/offers';
 import { DataProcess } from '../../types/state/state';
 import { fetchOffersAction, fetchCurrentOfferAction, fetchNearbyOffersAction, fetchReviewListAction, sendNewReviewAction, removeFavoriteOfferAction, addFavoriteOfferAction } from '../api-action';
-//import { favoritesDataProcess } from '../favorites-process/favorites-process';
-//import { removeFavorites } from '../favorites-pprocess/favorites-process';
 
 const initialState: DataProcess = {
   offers: [],
