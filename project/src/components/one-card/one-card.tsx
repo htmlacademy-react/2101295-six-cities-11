@@ -50,7 +50,7 @@ export default function OneCard({ offer, differences }: CardProps): JSX.Element 
           </div>
           <button className={offer.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
-            onClick={() => handleButtonFavoriteClick}
+            onClick={handleButtonFavoriteClick}
           >
             <svg
               className="place-card__bookmark-icon"
