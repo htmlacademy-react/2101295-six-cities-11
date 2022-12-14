@@ -9,11 +9,11 @@ type OffersListProps = {
   wrapperClassName: string;
 }
 const getSortedOffers = function (offers: Offer[], type: string) {
-  const offerss = offers.slice();
+  const offersForSort = offers.slice();
   switch (type) {
-    case 'Price: low to high': return offerss.sort((a, b) => a.price - b.price);
-    case 'Price: high to low': return offerss.sort((a, b) => b.price - a.price);
-    case 'Top rated first': return offerss.sort((a, b) => a.rating - b.rating);
+    case 'Price: low to high': return offersForSort.sort((a, b) => a.price - b.price);
+    case 'Price: high to low': return offersForSort.sort((a, b) => b.price - a.price);
+    case 'Top rated first': return offersForSort.sort((a, b) => a.rating - b.rating);
     default: return offers;
   }
 };
