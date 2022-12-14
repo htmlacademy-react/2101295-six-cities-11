@@ -12,7 +12,7 @@ import MainPageEmpty from '../../components/main-page-component/main-page-empty'
 import MainPageContent from '../../components/main-page-component/main-page-content';
 
 
-function MainPages(): JSX.Element {
+function MainPage(): JSX.Element {
 
   const city = useAppSelector(getCity);
   const offers = (useAppSelector(getOffers)).filter((offer) => offer.city.name === city.name);
@@ -48,5 +48,5 @@ function MainPages(): JSX.Element {
   );
 }
 
-export default MainPages;
+export default MainPage;
 

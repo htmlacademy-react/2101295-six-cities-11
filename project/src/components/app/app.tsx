@@ -1,8 +1,8 @@
-import MainPages from '../../pages/main-page/main-page';
-import Login from '../../pages/login/login';
-import FavoritesScreen from '../../pages/favorites/favorites';
-import Property from '../../pages/room/room';
-import NotFoundScreen from '../../pages/not-found/not-found';
+import MainPage from '../../pages/main-page/main-page';
+import LoginPage from '../../pages/login-page/login-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
+import RoomPage from '../../pages/room-page/room-page';
+import NotFound from '../../pages/not-found/not-found';
 import {HelmetProvider} from 'react-helmet-async';
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const/const';
@@ -18,27 +18,27 @@ function App(): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPages/>}
+            element={<MainPage/>}
           />
           <Route
             path={AppRoute.Login}
-            element={<Login />}
+            element={<LoginPage />}
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute>
-                <FavoritesScreen/>
+                <FavoritesPage/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Room}
-            element={<Property />}
+            element={<RoomPage />}
           />
           <Route
             path="*"
-            element={<NotFoundScreen />}
+            element={<NotFound />}
           />
         </Routes>
       </HistoryRouter>

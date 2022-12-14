@@ -4,22 +4,21 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offer-list/offer-list';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AuthorizationStatus, OfferOnPropety } from '../../const/const';
+import { AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import Gallery from '../../components/property-details/property-gallery';
 import ListPropertys from '../../components/property-details/room-property';
-import { fetchCurrentOfferAction, fetchFavoritesOffersAction, fetchNearbyOffersAction, fetchReviewListAction } from '../../store/api-action';
+import { addFavoriteOfferAction, fetchCurrentOfferAction, fetchFavoritesOffersAction, fetchNearbyOffersAction, fetchReviewListAction, removeFavoriteOfferAction } from '../../store/api-action';
 import NotFoundScreen from '../not-found/not-found';
 import LoadingScreen from '../../components/loader/loader';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCurrentOffer, getNearbyOffers, getStatusLoadedData, getReviews } from '../../store/data-process/selector';
 import { poinOutOffer } from '../../store/action-process/action-process';
 import Header from '../../components/header/header';
-import { handleButtonFavoriteClick } from '../../utils/utils';
 
 
-export default function Property(): JSX.Element {
+export default function RoomPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const { id } = useParams();
@@ -38,6 +37,19 @@ export default function Property(): JSX.Element {
       dispatch(poinOutOffer(Number(id)));
     }
   }, [id, dispatch]);
+
+  const handleButtonFavoriteClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      if (offer?.isFavorite) {
+        dispatch(removeFavoriteOfferAction(Number(id)));
+      } else {
+        dispatch(addFavoriteOfferAction((Number(id))));
+      }
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
+
 
   if (isOffersDataLoading || offer?.id !== Number(id)) {
     return <LoadingScreen />;
@@ -68,7 +80,7 @@ export default function Property(): JSX.Element {
                 </h1>
                 <button className='property__bookmark-button button property__bookmark-button--active'
                   type="button"
-                  onClick={() => handleButtonFavoriteClick(offer, authorizationStatus, dispatch, navigate)}
+                  onClick={handleButtonFavoriteClick}
                 >
                   <svg className={offer.isFavorite ? 'place-card__bookmark-icon' : 'property__bookmark-icon'} width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />

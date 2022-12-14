@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks';
 import FavoriteEmptyPage from '../../components/favorite-page-component/favorite-empty';
 import { getFavoritesOffers } from '../../store/favorites-process/selector';
 
-function FavoritesScreen(): JSX.Element {
+function FavoritesPage(): JSX.Element {
   const favoritesOffers = useAppSelector(getFavoritesOffers);
   return (
     <div className="page">
@@ -29,4 +29,4 @@ function FavoritesScreen(): JSX.Element {
   );
 }
 
-export default FavoritesScreen;
+export default FavoritesPage;

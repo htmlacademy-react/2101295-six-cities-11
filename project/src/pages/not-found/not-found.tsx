@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-function NotFoundScreen () : JSX.Element {
+function NotFound () : JSX.Element {
   return (
     <div className="page page--gray">
       <Helmet>
@@ -37,4 +37,4 @@ function NotFoundScreen () : JSX.Element {
   );
 }
 
-export default NotFoundScreen;
+export default NotFound;
