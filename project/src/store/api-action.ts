@@ -23,7 +23,7 @@ export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<string, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -31,21 +31,23 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 >(
   'user/checkAuth',
   async (_arg, { extra: api }) => {
-    await api.get(APIRoute.Login);
+    const data = await api.get<UserData>(APIRoute.Login);
+    return data.data.email;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+  async ({ login: email }, { dispatch, extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email });
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    return email;
   },
 );
 
@@ -119,7 +121,6 @@ export const sendNewReviewAction = createAsyncThunk<Review[], ReviewData, {
       throw err;
     }
   }
-
 );
 
 export const fetchFavoritesOffersAction = createAsyncThunk<Offer[], undefined, {
