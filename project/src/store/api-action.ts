@@ -8,6 +8,7 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { Review, ReviewData } from '../types/reviews/reviews';
+import { toast } from 'react-toastify';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -107,10 +108,18 @@ export const sendNewReviewAction = createAsyncThunk<Review[], ReviewData, {
 }
 >(
   'data/sendReview',
-  async ({ id, rating, comment }, { extra: api }) => {
-    const { data } = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, { rating, comment });
-    return data;
-  },
+  async ({ id, rating, comment, onSuccess }, { extra: api }) => {
+    try {
+      const { data } = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, { rating, comment });
+      onSuccess();
+      return data;
+    }
+    catch (err) {
+      toast.error('Error adding Comment');
+      throw err;
+    }
+  }
+
 );
 
 export const fetchFavoritesOffersAction = createAsyncThunk<Offer[], undefined, {
@@ -133,7 +142,7 @@ export const addFavoriteOfferAction = createAsyncThunk<Offer, number, {
 }
 >(
   'data/addStatusOffer',
-  async (id, { extra: api,}) => {
+  async (id, { extra: api, }) => {
     const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/1`);
     return data;
   }

@@ -15,4 +15,5 @@ export type ReviewData = {
   comment: string;
   rating: string;
   id: number;
+  onSuccess: () => void;
 }

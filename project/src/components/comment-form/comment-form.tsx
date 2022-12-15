@@ -32,6 +32,8 @@ export default function CommentForm(): JSX.Element {
   const isValidForm = (LengthComment.Min < formData.comment.length && formData.comment.length < LengthComment.Max && formData.rating !== '');
   const unBlockCommentForm = !isValidForm && !commentLoad;
 
+  const clearForm = () => setFormData({...formData, comment: '', rating: ''});
+
   const handleFormSubmmit = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     setCommentLoad(true);
@@ -40,9 +42,9 @@ export default function CommentForm(): JSX.Element {
         id: currentOffer.id,
         comment: formData.comment,
         rating: formData.rating,
+        onSuccess: clearForm,
       });
     }
-    setFormData({...formData, comment: '', rating: ''});
     setCommentLoad(false);
   };
 
