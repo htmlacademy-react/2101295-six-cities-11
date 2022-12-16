@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendNewReviewAction } from '../../store/api-action';
 import { getCurrentOffer } from '../../store/data-process/selector';
 import { ReviewData } from '../../types/reviews/reviews';
-import Stars from './stars';
+import Stars from '../star-rating/star-rating';
 
 
 export default function CommentForm(): JSX.Element {

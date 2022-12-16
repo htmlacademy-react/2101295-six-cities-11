@@ -2,7 +2,7 @@ type ListPropertysProp = {
   propertys: string[] | undefined;
 }
 
-export default function ListPropertys({propertys}: ListPropertysProp): JSX.Element {
+export default function RoomPropertysList({propertys}: ListPropertysProp): JSX.Element {
   return (
     <ul className="property__inside-list">
       {propertys?.map((property) => (

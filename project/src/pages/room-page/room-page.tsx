@@ -7,8 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import Gallery from '../../components/property-details/property-gallery';
-import ListPropertys from '../../components/property-details/room-property';
+import RoomGallery from '../../components/room-gallery/room-gallery';
+import RoomPropertysList from '../../components/room-propertys-list/room-propertys';
 import { addFavoriteOfferAction, fetchCurrentOfferAction, fetchFavoritesOffersAction, fetchNearbyOffersAction, fetchReviewListAction, removeFavoriteOfferAction } from '../../store/api-action';
 import NotFoundScreen from '../not-found/not-found';
 import LoadingScreen from '../../components/loader/loader';
@@ -67,7 +67,7 @@ export default function RoomPage(): JSX.Element {
           <title>Объявления</title>
         </Helmet>
         <section className="property">
-          <Gallery key={offer?.id} photos={offer?.images} alt={offer?.type} />
+          <RoomGallery key={offer?.id} photos={offer?.images} alt={offer?.type} />
           <div className="property__container container">
             <div className="property__wrapper">
               {offer?.isPremium ?
@@ -112,7 +112,7 @@ export default function RoomPage(): JSX.Element {
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ListPropertys propertys={offer?.goods} />
+                <RoomPropertysList propertys={offer?.goods} />
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>

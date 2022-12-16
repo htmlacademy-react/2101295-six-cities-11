@@ -8,8 +8,8 @@ import LoadingScreen from '../../components/loader/loader';
 import { getOffers, getStatusLoadedData } from '../../store/data-process/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCity } from '../../store/action-process/selector';
-import MainPageEmpty from '../../components/main-page-component/main-page-empty';
-import MainPageContent from '../../components/main-page-component/main-page-content';
+import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
+import MainPageContent from '../../components/main-page-content/main-page-content';
 
 
 function MainPage(): JSX.Element {
