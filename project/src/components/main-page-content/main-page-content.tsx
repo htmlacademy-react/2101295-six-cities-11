@@ -1,7 +1,7 @@
 import { OfferOnMain } from '../../const/const';
 import OffersList from '../offer-list/offer-list';
 import SortForm from '../sorting-places/sorting-places';
-import Map from '../../components/map/map';
+import Map from '../map/map';
 import { City, Offer } from '../../types/offers/offers';
 
 type MainPageContentProps = {

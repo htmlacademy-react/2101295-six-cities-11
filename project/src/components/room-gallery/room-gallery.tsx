@@ -15,11 +15,11 @@ function Photo({photo, alt}: RoomImageProps): JSX.Element {
   );
 }
 
-type GelleryProp = {
+type RoomGelleryProp = {
   photos: string[]| undefined;
   alt: string | undefined;
 }
-export default function Gallery({photos, alt}: GelleryProp): JSX.Element {
+export default function RoomGallery({photos, alt}: RoomGelleryProp): JSX.Element {
   return (
     <div className="property__gallery-container container">
       <div className="property__gallery">

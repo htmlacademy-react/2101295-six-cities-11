@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendNewReviewAction } from '../../store/api-action';
 import { getCurrentOffer } from '../../store/data-process/selector';
 import { ReviewData } from '../../types/reviews/reviews';
-import Stars from './stars';
+import Stars from '../star-rating/star-rating';
 
 
 export default function CommentForm(): JSX.Element {
@@ -32,6 +32,8 @@ export default function CommentForm(): JSX.Element {
   const isValidForm = (LengthComment.Min < formData.comment.length && formData.comment.length < LengthComment.Max && formData.rating !== '');
   const unBlockCommentForm = !isValidForm && !commentLoad;
 
+  const clearForm = () => setFormData({...formData, comment: '', rating: ''});
+
   const handleFormSubmmit = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     setCommentLoad(true);
@@ -40,9 +42,9 @@ export default function CommentForm(): JSX.Element {
         id: currentOffer.id,
         comment: formData.comment,
         rating: formData.rating,
+        onSuccess: clearForm,
       });
     }
-    setFormData({...formData, comment: '', rating: ''});
     setCommentLoad(false);
   };
 
@@ -51,7 +53,7 @@ export default function CommentForm(): JSX.Element {
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {starsData.map((star) => <Stars value={star.value} id={star.id} title={star.title} rating={star.value} handleFormSubmmit={fieldChangeHandle} commentLoad={false} key={star.id}/>)}
+        {starsData.map((star) => <Stars value={star.value} id={star.id} title={star.title} rating={formData.rating} handleFormSubmmit={fieldChangeHandle} commentLoad={commentLoad} key={star.id}/>)}
       </div>
       <textarea className="reviews__textarea form__textarea" onChange={fieldChangeHandle} disabled={commentLoad} id="review" name="comment" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.comment}/>
       <div className="reviews__button-wrapper">

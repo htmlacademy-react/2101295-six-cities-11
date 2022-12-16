@@ -8,6 +8,7 @@ import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { Review, ReviewData } from '../types/reviews/reviews';
+import { toast } from 'react-toastify';
 
 export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
@@ -22,7 +23,7 @@ export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<string, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -30,21 +31,23 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 >(
   'user/checkAuth',
   async (_arg, { extra: api }) => {
-    await api.get(APIRoute.Login);
+    const data = await api.get<UserData>(APIRoute.Login);
+    return data.data.email;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+  async ({ login: email }, { dispatch, extra: api }) => {
+    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email });
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    return email;
   },
 );
 
@@ -107,10 +110,17 @@ export const sendNewReviewAction = createAsyncThunk<Review[], ReviewData, {
 }
 >(
   'data/sendReview',
-  async ({ id, rating, comment }, { extra: api }) => {
-    const { data } = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, { rating, comment });
-    return data;
-  },
+  async ({ id, rating, comment, onSuccess }, { extra: api }) => {
+    try {
+      const { data } = await api.post<Review[]>(`${APIRoute.Reviews}/${id}`, { rating, comment });
+      onSuccess();
+      return data;
+    }
+    catch (err) {
+      toast.error('Error adding Comment');
+      throw err;
+    }
+  }
 );
 
 export const fetchFavoritesOffersAction = createAsyncThunk<Offer[], undefined, {
@@ -133,7 +143,7 @@ export const addFavoriteOfferAction = createAsyncThunk<Offer, number, {
 }
 >(
   'data/addStatusOffer',
-  async (id, { extra: api,}) => {
+  async (id, { extra: api, }) => {
     const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/1`);
     return data;
   }

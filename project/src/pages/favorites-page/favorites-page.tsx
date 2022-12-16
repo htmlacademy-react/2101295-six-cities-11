@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import FavoriteNotEmptyPage from '../../components/favorite-page-component/favorite-not-empty';
+import FavoriteNotEmpty from '../../components/favorite-not-empty/favorite-not-emty';
 import { useAppSelector } from '../../hooks';
-import FavoriteEmptyPage from '../../components/favorite-page-component/favorite-empty';
+import FavoriteEmpty from '../../components/favorite-empty/favorite-empty';
 import { getFavoritesOffers } from '../../store/favorites-process/selector';
 
 function FavoritesPage(): JSX.Element {
@@ -13,7 +13,7 @@ function FavoritesPage(): JSX.Element {
         <title>Избранное</title>
       </Helmet>
       <Header/>
-      {(favoritesOffers.length === 0) ? <FavoriteEmptyPage/> : <FavoriteNotEmptyPage/>}
+      {(favoritesOffers.length === 0) ? <FavoriteEmpty/> : <FavoriteNotEmpty/>}
       <footer className="footer container">
         <a className="footer__logo-link" href="main.html">
           <img

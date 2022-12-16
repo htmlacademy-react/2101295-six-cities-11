@@ -5,6 +5,7 @@ import { Review } from '../reviews/reviews';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+  authData: string;
 };
 
 export type State = ReturnType<typeof store.getState>;
