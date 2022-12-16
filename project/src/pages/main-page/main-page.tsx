@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { AuthorizationStatus } from '../../const/const';
-import CitiesList from '../../components/city-list/city-list';
+import CitiesList from '../../components/cities-list/cities-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import { fetchFavoritesOffersAction, fetchOffersAction } from '../../store/api-action';
-import LoadingScreen from '../../components/loader/loader';
+import Loader from '../../components/loader/loader';
 import { getOffers, getStatusLoadedData } from '../../store/data-process/selector';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCity } from '../../store/action-process/selector';
@@ -28,7 +28,7 @@ function MainPage(): JSX.Element {
 
   if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
     return (
-      <LoadingScreen />
+      <Loader />
     );
   }
 

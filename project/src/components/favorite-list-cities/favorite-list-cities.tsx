@@ -5,7 +5,7 @@ import { changeCity } from '../../store/action-process/action-process';
 import { getFavoritesOffers } from '../../store/favorites-process/selector';
 import OffersList from '../offer-list/offer-list';
 
-export default function FavoriteListCity(): JSX.Element {
+export default function FavoriteListCities(): JSX.Element {
   const dispatch = useAppDispatch();
   const offers = useAppSelector(getFavoritesOffers);
   return (

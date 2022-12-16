@@ -1,4 +1,4 @@
-import FavoriteListCity from '../favorite-list-citys/favorite-list-citys';
+import FavoriteListCities from '../favorite-list-cities/favorite-list-cities';
 
 export default function FavoriteNotEmpty(): JSX.Element {
   return (
@@ -6,7 +6,7 @@ export default function FavoriteNotEmpty(): JSX.Element {
       <div className="page__favorites-container container">
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
-          <FavoriteListCity />
+          <FavoriteListCities />
         </section>
       </div>
     </main>
