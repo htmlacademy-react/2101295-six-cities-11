@@ -1,4 +1,4 @@
-export default function LoadingScreen(): JSX.Element {
+export default function Loadar(): JSX.Element {
   return (
     <p>Loading ...</p>
   );

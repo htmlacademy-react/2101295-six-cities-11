@@ -8,10 +8,10 @@ import { AppRoute, AuthorizationStatus, OfferOnPropety } from '../../const/const
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import RoomGallery from '../../components/room-gallery/room-gallery';
-import RoomPropertysList from '../../components/room-propertys-list/room-propertys';
+import RoomPropertysList from '../../components/room-propertys-list/room-propertys-list';
 import { addFavoriteOfferAction, fetchCurrentOfferAction, fetchFavoritesOffersAction, fetchNearbyOffersAction, fetchReviewListAction, removeFavoriteOfferAction } from '../../store/api-action';
 import NotFoundScreen from '../not-found/not-found';
-import LoadingScreen from '../../components/loader/loader';
+import Loadar from '../../components/loader/loader';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getCurrentOffer, getNearbyOffers, getStatusLoadedData, getReviews } from '../../store/data-process/selector';
 import { poinOutOffer } from '../../store/action-process/action-process';
@@ -52,7 +52,7 @@ export default function RoomPage(): JSX.Element {
 
 
   if (isOffersDataLoading || offer?.id !== Number(id)) {
-    return <LoadingScreen />;
+    return <Loadar />;
   }
 
   if (!offer) {
