@@ -13,10 +13,10 @@ const initialState: DataProcess = {
 
 const updateDataState = (state: DataProcess, action: PayloadAction<Offer>) => {
   state.offers = state.offers.map((it) => it.id === action.payload.id ? action.payload : it);
-  if (state.currentOffer !== undefined && state.currentOffer.id === action.payload.id) {
+  if (state.currentOffer && state.currentOffer.id === action.payload.id) {
     state.currentOffer = action.payload;
   }
-  if (state.nearbyOffers !== undefined) {
+  if (state.nearbyOffers) {
     state.nearbyOffers = state.nearbyOffers.map((it) => it.id === action.payload.id ? action.payload : it);
   }
 };

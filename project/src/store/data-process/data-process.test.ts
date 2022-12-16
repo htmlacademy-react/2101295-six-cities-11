@@ -1,8 +1,8 @@
 //import { AuthorizationStatus } from '../../const/const';
 import { DataProcess } from '../../types/state/state';
-import { makeFakeOffer, makeFakeOffers, makeMockNearbyOffers } from '../../utils/utils';
+import { makeFakeComments, makeFakeOffer, makeFakeOffers, makeMockNearbyOffers } from '../../utils/utils';
 //import { makeFakeUserData } from '../../utils/utils';
-import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchOffersAction } from '../api-action';
+import { addFavoriteOfferAction, fetchCurrentOfferAction, fetchNearbyOffersAction, fetchOffersAction, fetchReviewListAction, removeFavoriteOfferAction, sendNewReviewAction } from '../api-action';
 import { dataProcess } from './data-process';
 
 describe('Reducer: data', () => {
@@ -87,6 +87,67 @@ describe('Reducer: data', () => {
         .toEqual({
           offers: [],
           nearbyOffers: mockNearbyOffers,
+          reviews: [],
+          isDataLoading: false,
+        });
+    });
+  });
+  describe('fetchReviewListAction test', () => {
+    it('should update isDataLoading to "true" if fetchReviewListAction.pending', () => {
+      expect(dataProcess.reducer(state, { type: fetchReviewListAction.pending.type }))
+        .toEqual({
+          offers: [],
+          nearbyOffers: [],
+          reviews: [],
+          isDataLoading: true,
+        });
+    });
+
+    it('should update isDataLoading to "false" and load mockReviws if fetchReviewListAction.fulfilled', () => {
+      const mockReviws = makeFakeComments();
+      expect(dataProcess.reducer(state, { type: fetchReviewListAction.fulfilled.type, payload: mockReviws }))
+        .toEqual({
+          offers: [],
+          nearbyOffers: [],
+          reviews: mockReviws,
+          isDataLoading: false,
+        });
+    });
+  });
+  describe('sendNewReviewAction test', () => {
+
+    it('should load mockReviws if sendNewReviewAction.fulfilled', () => {
+      const mockReviws = makeFakeComments();
+      expect(dataProcess.reducer(state, { type: sendNewReviewAction.fulfilled.type, payload: mockReviws }))
+        .toEqual({
+          offers: [],
+          nearbyOffers: [],
+          reviews: mockReviws,
+          isDataLoading: false,
+        });
+    });
+  });
+  describe('removeFavoriteOfferAction test', () => {
+
+    it('should load mockReviws if removeFavoriteOfferAction.fulfilled', () => {
+      const changeOffer = makeFakeOffer(1);
+      expect(dataProcess.reducer(state, { type: removeFavoriteOfferAction.fulfilled.type, payload: changeOffer }))
+        .toEqual({
+          offers: state.offers.map((it) => it.id === changeOffer.id ? changeOffer : it),
+          nearbyOffers: state.nearbyOffers.map((it) => it.id === changeOffer.id ? changeOffer : it),
+          reviews: [],
+          isDataLoading: false,
+        });
+    });
+  });
+  describe('addFavoriteOfferAction test', () => {
+
+    it('should load mockReviws if addFavoriteOfferAction.fulfilled', () => {
+      const changeOffer = makeFakeOffer(1);
+      expect(dataProcess.reducer(state, { type: addFavoriteOfferAction.fulfilled.type, payload: changeOffer }))
+        .toEqual({
+          offers: state.offers.map((it) => it.id === changeOffer.id ? changeOffer : it),
+          nearbyOffers: state.nearbyOffers.map((it) => it.id === changeOffer.id ? changeOffer : it),
           reviews: [],
           isDataLoading: false,
         });

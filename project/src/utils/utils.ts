@@ -1,5 +1,6 @@
 import { address, datatype, image, internet, lorem } from 'faker';
 import { Offer } from '../types/offers/offers';
+import { Review } from '../types/reviews/reviews';
 // import { cities, DEFAULT_CITY_INDEX } from '../consts/city';
 // import { OfferType } from '../consts/offer';
 // import { City, Offer, Offers } from '../types/offers';
@@ -77,6 +78,24 @@ export const makeMockNearbyOffers = (): Offer[] => {
   return nearbyoffers;
 };
 
-// export const makeFakeComments = (): Reviews => [makeFakeComment(1), makeFakeComment(2), makeFakeComment(3)];
+export const makeFakeReview = (id: number): Review => ({
+  comment: lorem.paragraph(),
+  date: String(datatype.datetime()),
+  id: id,
+  rating: datatype.number(5),
+  user: {
+    avatarUrl: image.imageUrl(),
+    id: datatype.number(),
+    isPro: datatype.boolean(),
+    name:  lorem.word(),
+  }
+} as Review);
 
+export const makeFakeComments = (): Review[] => {
+  const reviews : Review[] = [];
+  for (let i = 0; i < datatype.number(10); i++) {
+    reviews.push(makeFakeReview(i));
+  }
+  return reviews;
+};
 // export const makeFakeCommentText = () => lorem.word(5) + lorem.word(10) + lorem.word(25) + lorem.word(5) + lorem.word(5);
